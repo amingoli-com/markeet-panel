@@ -1,4 +1,2 @@
 # markeet-panel
 WebSite
-
-MARKEET
