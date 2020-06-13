@@ -1,0 +1,29 @@
+<md-dialog layout="column" flex="25" aria-label="dialog category">
+    <md-dialog-content class="autoScroll" style="max-width:800px;max-height:810px;">
+        <div ng-if="not_exist">
+            <p>محصولی با نام <b>{{pod.product_name}}</b> وجود ندارد یا قبلاً حذف شده است</p>
+        </div>
+        <div ng-if="!not_exist">
+            <p class="hint" ng-if="dif_name">نام محصول جدید : <i>{{product.name}}</i></p>
+            <p>نام محصول : <b>{{pod.product_name}}</b></p>
+            <p flex="30">موجودی : <b>{{product.stock}}</b></p>
+        </div>
+        <md-divider></md-divider>
+
+        <div layout="row" layout-align="center center" class="md-padding">
+            <div flex="20" layout="row" layout-align="center" style="background-color:#ECEFF1;">
+                <md-button class="md-icon-button" ng-click="decreaseAmount()">
+                    <md-icon aria-label="Close dialog">remove</md-icon>
+                </md-button>
+            </div>
+            <div flex layout="row" layout-align="center">
+                <h3>{{pod.amount}}</h3>
+            </div>
+            <div flex="20" layout="row" layout-align="center" style="background-color:#ECEFF1;">
+                <md-button class="md-icon-button" ng-click="increaseAmount()">
+                    <md-icon aria-label="Close dialog">add</md-icon>
+                </md-button>
+            </div>
+        </div>
+    </md-dialog-content>
+</md-dialog>

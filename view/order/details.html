@@ -1,0 +1,103 @@
+<md-dialog layout="column" flex="70" aria-label="dialog place">
+  <form role="form" name="thisForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>مشخصات سفارش</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="print()">
+          <md-icon aria-label="Print">print</md-icon>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon aria-label="Close dialog">clear</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content class="autoScroll">
+    <div layout="row">
+      <item flex="25">نام خریدار</item> <item flex="5"> : </item> <item>{{order.buyer}}</item>
+    </div>
+    <div layout="row">
+      <item flex="25">ایمیل</item> <item flex="5"> : </item> <item>{{order.email}}</item>
+    </div>
+    <div layout="row">
+      <item flex="25">تلفن</item> <item flex="5"> : </item> <item>{{order.phone}}</item>
+    </div>
+    <div layout="row">
+      <item flex="25">آدرس</item> <item flex="5"> : </item> <item>{{order.address}}</item>
+    </div>
+
+    <md-divider class="margin-divider"></md-divider>
+    <div layout="row">
+      <item flex="25">روش ارسال</item> <item flex="5"> : </item> <item>{{order.shipping}}</item>
+    </div>
+    <div layout="row">
+      <item flex="25">تاریخ ارسال</item> <item flex="5"> : </item> <item>{{order.date_ship | date:'dd MMMM yyyy'}}</item>
+    </div>
+
+    <md-divider class="margin-divider"></md-divider>
+    <div layout="row">
+      <item flex="25">وضعیت سفارش</item> <item flex="5"> : </item>
+      <item>
+        <waiting ng-if="order.status=='WAITING'">درحال پردازش</waiting>
+        <processed ng-if="order.status=='PROCESSED'">دریافت شده</processed>
+        <cancel ng-if="order.status=='CANCEL'">مرجوعی/لغو شده</cancel>
+      </item>
+    </div>
+    <div layout="row">
+      <item flex="25">جمع مبالغ</item> <item flex="5"> : </item> <item>{{order.total_fees}} {{conf_currency}}</item>
+    </div>
+
+    <md-divider class="margin-divider"></md-divider>
+    <div layout="row">
+      <item flex="25">تاریخ سفارش</item> <item flex="5"> : </item> <item>{{order.created_at | date:'hh.mm, dd MMMM yyyy'}}</item>
+    </div>
+    <div layout="row">
+      <item flex="25">بروز شده در</item> <item flex="5"> : </item> <item>{{order.last_update | date:'hh.mm, dd MMMM yyyy'}}</item>
+    </div>
+
+    <md-divider class="margin-divider"></md-divider>
+    <div layout="row">
+      <item flex="25">توضیحات</item> <item flex="5"> : </item> <item>{{order.comment}}</item>
+    </div>
+    <md-divider class="margin-divider"></md-divider>
+    <div layout="row">
+      <item flex="25">سریال</item> <item flex="5"> : </item> <item>{{order.serial}}</item>
+    </div>
+    <md-divider class="margin-divider"></md-divider>
+
+    <br>
+    <h3>لیست محصولات سفارش داده شده : </h3>
+    <md-divider></md-divider>
+    <div layout="row">
+      <item flex="5">ردیف</item> <item flex="55">محصول</item> <item flex="15">قیمت</item> <item flex="5">تعداد</item>
+      <item flex="20" layout="row" layout-align="end center">قیمت کل</item>
+    </div>
+    <md-divider></md-divider>
+
+    <div layout="row" ng-repeat="pod in order_details">
+      <item flex="5">{{$index+1}}</item><item flex="55">{{pod.product_name}}</item> <item flex="15">{{pod.price_item}}</item> <item flex="5">{{pod.amount}}</item>
+      <item flex="20" layout="row" layout-align="end center">{{getPriceTotal(pod)}} {{conf_currency}}</item>
+    </div>
+    <md-divider></md-divider>
+    <div layout="row">
+      <item flex="80">تعداد</item>
+      <item flex="20" layout="row" layout-align="end center">{{price_total_formatted}} {{conf_currency}}</item>
+    </div>
+    <div layout="row">
+      <item flex="80">مالیات ({{order.tax}} %)</item>
+      <item flex="20" layout="row" layout-align="end center">{{price_tax_formatted}} {{conf_currency}}</item>
+    </div>
+    <md-divider></md-divider>
+    <div layout="row">
+      <item flex="80">جمع کل (با احتساب مالیات)</item>
+      <item flex="20" layout="row" layout-align="end center">{{price_after_tax}} {{conf_currency}}</item>
+    </div>
+    <md-divider></md-divider>
+    <p class="hint"><i> * این مالیات ممکن است با مالیات فعلی شما متفاوت باشد ، این مالیات هنگام ارسال سفارش از خریدار محاسبه می کند</i></p>
+    <br><br>
+  </md-dialog-content>
+  <div class="md-actions" layout="row" style="padding-left: 8px;" ng-if="process">
+    <md-button flex="100" md-no-ink ng-click="processOrder(order)" class="md-accent md-raised" >سفارش تحویل داده شد</md-button>
+  </div>
+  </form>
+</md-dialog>

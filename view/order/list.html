@@ -1,0 +1,92 @@
+<md-card class="md-whiteframe-1dp">
+<div class="table-responsive-vertical">
+	<table id="table" class="table table-hover">
+		<thead>
+			<tr >
+				<th width="1%">ردیف</th>
+				<th width="25%">خریدار</th>
+				<th width="5%">دستگاه</th>
+				<th width="10%">کد سفارش</th>
+				<th width="10%">جمع مبلغ</th>
+				<th width="10%">زمان دریافت</th>
+				<th width="10%">تاریخ ثبت</th>
+				<th width="5%">وضعیت</th>
+				<th width="5%">عملیات</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr ng-repeat="po in product_order track by po.id">
+				<td data-title="No">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
+				<td data-title="Buyer">{{po.buyer}}</td>
+				<td data-title="From">
+					<div ng-if="po.serial != null && po.serial !=''">
+						<md-icon class="md-ic-small ic-small-green">android</md-icon>
+						<md-tooltip>اپلیکیشن اندروید</md-tooltip>
+					</div>
+					<div ng-if="po.serial==null || po.serial==''">
+						<md-icon class="md-ic-small ic-small-grey">laptop</md-icon>
+						<md-tooltip>مرورگر</md-tooltip>
+					</div>
+				</td>
+				<td data-title="Code">{{po.code}}</td>
+				<td data-title="Total Fees">{{po.total_fees}}</td>
+				<td data-title="Date Ship">{{po.date_ship | date:'dd MMM yy'}}</td>
+				<td data-title="Created at">{{po.created_at | date:'dd MMM yy'}}</td>
+				<td data-title="Status">
+					<waiting ng-if="po.status=='WAITING'">درحال پردازش</waiting>
+					<processed ng-if="po.status=='PROCESSED'">تحویل داده شده</processed>
+					<cancel ng-if="po.status=='CANCEL'">مرجوعی/لغو شده</cancel>
+				</td>
+				<td data-title="Action">
+					<md-menu md-position-mode="target-right target" >
+						<md-button class="md-btn-small" ng-click="$mdOpenMenu($event)">
+							<md-icon class="md-ic-small" ng-style="{'font-size': '15px'}">more_vert</md-icon>
+						</md-button>
+						<md-menu-content width=3>
+						<!--<md-title class="md-padding">{{po.buyer}}</md-title>-->
+							<md-menu-item>
+								<md-button layout-fill md-ink-ripple ng-click="detailsOrder($event, po)">
+									<md-icon md-class="md-primary" md-menu-align-target>launch</md-icon>نمایش
+								</md-button>
+							</md-menu-item>
+							<md-menu-item ng-if="po.status=='WAITING'">
+								<md-button layout-fill md-ink-ripple ng-click="processedOrderConfirm($event, po)">
+									<md-icon md-class="md-primary" md-menu-align-target>assignment_turned_in</md-icon>تحویل داده شد
+								</md-button>
+							</md-menu-item>
+							<md-menu-item ng-if="po.status!='PROCESSED'">
+								<md-button layout-fill md-ink-ripple ng-click="editOrder($event, po)">
+									<md-icon md-class="md-primary" md-menu-align-target>create</md-icon>ویرایش
+								</md-button>
+							</md-menu-item>
+
+							<md-menu-item ng-if="po.status=='WAITING'">
+								<md-button layout-fill md-ink-ripple ng-click="cancelOrder($event, po)">
+									<md-icon md-class="md-primary" md-menu-align-target>block</md-icon>مرجوعی/لغو سفارش
+								</md-button>
+							</md-menu-item>
+
+							<md-menu-item ng-if="po.status!='PROCESSED'">
+								<md-button layout-fill md-ink-ripple ng-click="deleteOrder($event, po)">
+									<md-icon md-class="md-primary" md-menu-align-target>delete</md-icon>حذف
+								</md-button>
+							</md-menu-item>
+						</md-menu-content>
+					</md-menu>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div ng-if="loading" style="text-align:center;" colspan="10">
+		<p>درحال بارگذاری</p>
+		<md-progress-linear md-mode="indeterminate"/>
+	</div>
+</div>
+
+<!--pagination view-->
+<section layout="row" class="sub-menu-bg" flex>
+	<cl-paging flex cl-pages="paging.total" , cl-steps="paging.step" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"/>
+</section>
+
+</md-card>

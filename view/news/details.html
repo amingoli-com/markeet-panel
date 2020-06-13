@@ -1,0 +1,51 @@
+<md-dialog layout="column" flex="50" aria-label="dialog place">
+  <form role="form" name="thisForm">
+    <md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2>اطلاعات خبر</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="cancel()"> <md-icon aria-label="Close dialog">clear</md-icon> </md-button>
+		</div>
+    </md-toolbar>
+
+	<md-dialog-content class="autoScroll" style="max-width:800px;max-height:810px;">
+		<h3>{{news.title}}</h3>
+		<img class="md-center" style="margin: auto; max-width: 100%;" ng-src="uploads/news/{{news.image}}" flex="40">
+
+		<md-divider class="margin-divider"></md-divider>
+		<div layout="row">
+			<item flex="25">وضعیت انتشار</item> <item flex="5"> : </item>
+			<item>
+				<draft ng-if="news.draft == 1">پیش نویس</draft>
+				<publish ng-if="news.draft != 1">منتشر شده</publish>
+			</item>
+		</div>
+		<div layout="row">
+			<item flex="25">نوع خبر</item> <item flex="5"> : </item>
+			<item>
+				<featured ng-if="news.status=='FEATURED'">ویژه</featured>
+				<normal ng-if="news.status!='FEATURED'">عادی</normal>
+			</item>
+		</div>
+
+		<md-divider class="margin-divider"></md-divider>
+		<div layout="row">
+			<item flex="25">منتشر شده در</item> <item flex="5"> : </item> <item>{{news.created_at | date:'hh.mm, dd MMMM yyyy'}}</item>
+		</div>
+		<div layout="row">
+			<item flex="25">بروز شده در</item> <item flex="5"> : </item> <item>{{news.last_update | date:'hh.mm, dd MMMM yyyy'}}</item>
+		</div>
+
+		<md-divider class="margin-divider"></md-divider>
+		<div layout="row">
+			<item flex="25">خلاصه خبر</item> <item flex="5"> : </item> <item>{{news.brief_content}}</item>
+		</div>
+
+		<md-divider class="margin-divider"></md-divider>
+		<div layout="row">
+			<item flex="25">متن کامل خبر</item> <item flex="5"> : </item>
+		</div>
+		<div ng-bind-html="news.full_content"></div>
+	</md-dialog-content>
+  </form>
+</md-dialog>

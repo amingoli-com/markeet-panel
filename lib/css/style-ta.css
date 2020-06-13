@@ -1,0 +1,123 @@
+/*
+ * Style for textAngular 
+ * rich text editor
+ */
+
+.ta-editor {
+  min-height: 300px;
+  max-width: 100%;
+  height: auto;
+  overflow: auto;
+  font-family: inherit;
+  font-size: 100%;
+}
+
+.form-control-ta {
+  display: block;
+  padding: 6px 12px;
+  font-size: 14px;
+  min-width: 97%;
+  line-height: 1.428571429;
+  color: #555555;
+  vertical-align: middle;
+  background-color: #ffffff;
+  background-image: none;
+  border: 1px solid #cccccc;
+}
+
+.html-editor {
+  background-color: #333333;
+  color: #ffffff;
+  font-family: monospace;
+}
+
+.btn-default-ta {
+  color: #808080;
+  background-color: #ffffff;
+  border-color: transparent;
+}
+
+.btn-default-ta:hover,
+.btn-default-ta:focus,
+.btn-default-ta:active,
+.btn-default-ta.active {
+  color: #333333;
+  background-color: #f2f2f2;
+  border-color: transparent;
+}
+
+.btn-toolbar-ta {
+  padding: 5px 2px 5px 2px;
+}
+
+.btn-toolbar-ta:before,
+.btn-toolbar-ta:after {
+  display: table;
+  content: " ";
+}
+
+.btn-toolbar-ta:after {
+  clear: both;
+}
+
+.btn-toolbar-ta .btn-group-ta {
+  float: left;
+}
+
+.btn-group-ta {
+  margin-right: 10px;
+}
+
+.btn-group-ta > .btn-ta
+.btn-ta {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.428571429;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+button-ta {
+  margin: 0;
+  font-family: inherit;
+  font-size: 100%;
+}
+
+#circle {
+  background: #FFC107;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+#circle-grey {
+  background: #E0E0E0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.center-crop {
+  object-fit: cover;
+  height: 100%;
+  background-color: #9E9E9E;
+}
+
+.image-playlist {
+  width: 50px;
+  height: 50px;
+  cursor:pointer;
+}

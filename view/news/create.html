@@ -1,0 +1,62 @@
+<md-card class="md-whiteframe-1dp md-padding">
+  <form role="form" name="thisForm" id="thisForm" novalidate class="md-padding">
+  
+	<div layout="row">
+		<md-input-container flex="70">
+			<label>عنوان *</label>
+			<input required name="title" ng-model="news.title" maxlength="100">
+		</md-input-container>
+	</div>
+
+	<div layout="row" layout-align="start end">
+		<md-input-container flex="20">
+			<label>وضعیت *</label>
+			<md-select required ng-model="news.status"> 
+				<md-option value="NORMAL">عادی</md-option>
+				<md-option value="FEATURED">ویژه</md-option>
+			</md-select>
+		</md-input-container>
+	</div>
+	<div class="hint" ng-if="featured_exceed==1"><i><b>ویژه - غیر پیش نویس</b> اخبار بیش از حد مجاز است.
+		<br>فقط مجاز به ایجاد اخبار با وضعیت <b>عادی</b> یا <b>ويژه - پیش نویس</b></i> میباشید<br><br>
+	</div>
+	
+	<div layout="row">
+		<md-input-container flex="45">
+			<label>توضیحات کوتاه *</label>
+			<textarea required name="brief_content" maxlength="200" ng-model="news.brief_content" rows="2"></textarea>
+		</md-input-container>
+	</div>
+	
+    <fieldset class="standard margin-input-container md-padding">
+		<legend>عکس *</legend>
+		<div layout="row" layout-align="center center">
+			<input class="padding-top-bottom" type="file" name="image" onchange="angular.element(this).scope().onFileSelect(this.files)" flex/>
+			<md-button class="md-icon-button" ng-click="viewImage($event, 'uploads/news/'+news.image)" ng-if="!isNewEntry()">
+				<md-icon>wallpaper</md-icon>
+			</md-button>
+		</div>
+		<div ng-if="!image.valid" class="red-alert">فقط فرمت PNG با حجم کمتر از ۵۰۰ کیلوبایت</div>
+		<p class="hint">بهترین نسبت تصویر برای نمایش ارتفاع ۴۰۰ و طول ۸۰۰ پیکسل میباشد</p>
+    </fieldset>
+	<br>
+	<legend>متن کامل *</legend>
+	<div text-angular="text-angular" required name="full_content" ng-model="news.full_content"></div>
+
+	<br><br>
+	<md-divider></md-divider>
+	<md-checkbox ng-model="news.draft" ng-true-value="1" ng-false-value="0" ng-change="draftChanged(news.draft)">ذخیره به عنوان پیش نویس</md-checkbox>
+	<md-checkbox ng-disabled="news.draft==1" ng-model="send_notif">ارسال اعلان به کاربران</md-checkbox>
+	<p class="hint">هنگامی که حالت <i>ذخیره به عنوان پیش نویس</i> را انتخاب کرده‌اید چیزی به کاربر نمایش داده نمیشود</p>
+
+	<br><br>
+    <em> (*) موارد الزامی</em>
+
+    <div class="md-actions md-padding" layout="row">
+		<span flex></span>
+		<md-button ng-if="!submit_loading" class="md-warn" ng-click="cancel()" > لغو </md-button>
+		<md-button ng-if="!submit_loading" ng-disabled="!isReadySubmit() || thisForm.$invalid" ng-click="submit(news)" class="md-raised md-primary"> {{button_text}} </md-button>
+		<md-progress-circular ng-if="submit_loading" class="md-accent" md-mode="indeterminate" md-diameter="30px"></md-progress-circular>
+    </div>
+  </form>
+</md-card>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>مارکت</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link href="../../lib/css/angular-material.min.css" rel="stylesheet prefetch" type="text/css"/>
+    <link href="../../lib/css/fonts/material.css" rel="stylesheet" type="text/css"/>
+    <link href="../../lib/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link href='../../lib/css/fonts/font-awesome.min.css' rel='stylesheet prefetch'/>
+
+
+    <script src="../../lib/js/angular.min.js"></script>
+    <script src="../../lib/js/angular-route.min.js"></script>
+    <script src="../../lib/js/angular-animate.min.js"></script>
+    <script src="../../lib/js/angular-aria.min.js"></script>
+    <script src="../../lib/js/angular-material.min.js"></script>
+    <script src="../../lib/js/angular-messages.min.js"></script>
+    <script src="../../lib/js/angular-cookies.min.js"></script>
+    <script src="../../lib/js/angular-sanitize.min.js"></script>
+
+    <!-- angular global controllers -->
+    <script>
+        angular.module('App', ['ngMaterial', 'ngRoute', 'ngMessages', 'ngCookies', 'ngSanitize']);
+        angular.module('App').config(['$locationProvider', function ($locationProvider) {
+            $locationProvider.html5Mode({
+                enabled: true,
+                requireBase: false
+            });
+        }]);
+    </script>
+    <!-- angular current controllers -->
+    <script src="../../controller/order/print.js"></script>
+</head>
+
+<body layout="row" ng-app="App" ng-controller="PrintOrderController" layout-fill>
+
+<div layout="column" class="relative" style="background-color:#FFF; width: 100%">
+    <md-content id="main-content" style="width: 100%" >
+        <div layout width="700" style="width: 700px; padding: 20px;">
+            <div layout="column">
+                <div layout="row">
+                    <item flex="25">
+                        <img src="../../lib/img/logo_print.png" alt="Logo Print">
+                    </item>
+                    <span flex></span>
+                    <item>
+                        <md-button class="md-icon-button" ng-click="printAction()">
+                            <md-icon aria-label="Print">print</md-icon>
+                        </md-button>
+                    </item>
+                </div>
+
+                <div layout="row" style="margin-top: 20px;">
+                    <item flex="50"><b>مشخصات سفارش</b></item>
+                    <item flex></item>
+                    <item>کد رهگیری : <span style="color: #89C541;">{{order.code}}</span></item>
+                </div>
+
+                <md-divider class="margin-divider"></md-divider>
+
+                <div layout="row">
+                    <item flex="25">نام خریدار</item>
+                    <item flex="5"> :</item>
+                    <item>{{order.buyer}}</item>
+                </div>
+                <div layout="row">
+                    <item flex="25">ایمیل</item>
+                    <item flex="5"> :</item>
+                    <item>{{order.email}}</item>
+                </div>
+                <div layout="row">
+                    <item flex="25">تلفن</item>
+                    <item flex="5"> :</item>
+                    <item>{{order.phone}}</item>
+                </div>
+                <div layout="row">
+                    <item flex="25">آدرس</item>
+                    <item flex="5"> :</item>
+                    <item>{{order.address}}</item>
+                </div>
+
+                <md-divider class="margin-divider"></md-divider>
+                <div layout="row">
+                    <item flex="25">روش دریافت</item>
+                    <item flex="5"> :</item>
+                    <item>{{order.shipping}}</item>
+                </div>
+                <div layout="row">
+                    <item flex="25">تاریخ دریافت</item>
+                    <item flex="5"> :</item>
+                    <item>{{order.date_ship | date:'dd MMMM yyyy'}}</item>
+                </div>
+
+                <md-divider class="margin-divider"></md-divider>
+                <div layout="row">
+                    <item flex="25">وضعیت</item>
+                    <item flex="5"> :</item>
+                    <item>
+                        <waiting ng-if="order.status=='WAITING'">{{order.status}}</waiting>
+                        <processed ng-if="order.status=='PROCESSED'">{{order.status}}</processed>
+                        <cancel ng-if="order.status=='CANCEL'">{{order.status}}</cancel>
+                    </item>
+                </div>
+                <div layout="row">
+                    <item flex="25">جمع کل</item>
+                    <item flex="5"> :</item>
+                    <item>{{order.total_fees}} {{conf_currency}}</item>
+                </div>
+
+                <md-divider class="margin-divider"></md-divider>
+                <div layout="row">
+                    <item flex="25">تاریخ ثبت سفارش</item>
+                    <item flex="5"> :</item>
+                    <item>{{order.created_at | date:'hh.mm, dd MMMM yyyy'}}</item>
+                </div>
+                <div layout="row">
+                    <item flex="25">بروز شده در</item>
+                    <item flex="5"> :</item>
+                    <item>{{order.last_update | date:'hh.mm, dd MMMM yyyy'}}</item>
+                </div>
+
+                <md-divider class="margin-divider"></md-divider>
+                <div layout="row">
+                    <item flex="25">توضیحات</item>
+                    <item flex="5"> :</item>
+                    <item>{{order.comment}}</item>
+                </div>
+                <md-divider class="margin-divider"></md-divider>
+                <div layout="row" ng-if="order.serial !== ''">
+                    <item flex="25">سریال</item>
+                    <item flex="5"> :</item>
+                    <item>{{order.serial}}</item>
+                </div>
+
+                <md-divider class="margin-divider" ng-if="order.serial !== ''"></md-divider>
+
+                <br>
+                <b>لیست سفارشات: </b><br>
+
+                <md-divider></md-divider>
+                <div layout="row">
+                    <item flex="5"><b>ردیف</b></item>
+                    <item flex="50" style="width: 500px; text-align: center"><b> نام محصول </b></item>
+                    <item flex="5"></item>
+                    <item flex="15"><b>قیمت</b></item>
+                    <item flex="5"><b>تعداد</b></item>
+                    <item flex="20" layout="row" layout-align="end center"><b>جمع</b></item>
+                </div>
+                <md-divider></md-divider>
+
+                <div layout="row" ng-repeat="pod in order_details">
+                    <item flex="5">{{$index+1}}</item>
+                    <item flex="50"style="width: 500px;">{{pod.product_name}}</item>
+                    <item flex="5"></item>
+                    <item flex="15">{{pod.price_item}}</item>
+                    <item flex="5">{{pod.amount}}</item>
+                    <item flex="20" layout="row" layout-align="end center">{{getPriceTotal(pod)}} {{conf_currency}}
+                    </item>
+                </div>
+
+                <md-divider></md-divider>
+                <div layout="row">
+                    <item flex="80">جمع کل</item>
+                    <item flex="20" layout="row"
+                          layout-align="end center">{{price_total_formatted}} {{conf_currency}}
+                    </item>
+                </div>
+                <div layout="row">
+                    <item flex="80">مالیات ({{order.tax}} %)</item>
+                    <item flex="20" layout="row" layout-align="end center">{{price_tax_formatted}} {{conf_currency}}
+                    </item>
+                </div>
+                <md-divider></md-divider>
+                <div layout="row" style="color: #89C541;">
+                    <item flex="80"><b>جمع کل با مالیات</b></item>
+                    <item flex="20" layout="row" layout-align="end center">
+                        <b>{{price_after_tax}} {{conf_currency}}</b>
+                    </item>
+                </div>
+                <md-divider></md-divider>
+                <p class="hint">
+                    <i> * این مالیات ممکن است با مالیات فعلی شما متفاوت باشد ، این مالیات هنگام ارسال سفارش از خریدار محاسبه می کند</i>
+                </p>
+                <br><br>
+            </div>
+        </div>
+    </md-content>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<md-card class="md-whiteframe-1dp md-padding">
+  <form role="form" name="thisForm" id="thisForm" novalidate class="md-padding">
+  
+	<div layout="row">
+		<md-input-container flex="45">
+			<label>نام *</label>
+			<input required name="name" ng-model="category.name" maxlength="50">
+		</md-input-container>
+	</div>
+
+	<p class="hint"><i>رنگی که در تضاد با رنگ سفید است توسط کاربر به راحتی قابل خواندن خواهد بود ، به عنوان مثال در کادر رنگ زیر مراجعه کنید</i></p>
+	<div layout="row" layout-align="start center">
+		<md-input-container flex="10">
+			<label>Color *</label>
+			<input colorpicker required name="color" ng-model="category.color" maxlength="7" readonly>
+		</md-input-container>
+		<div style="width:200px;background-color:{{category.color}};margin:10px;color:#FFFFFF;padding:5px;">
+			<b>نام دسته بندی</b>
+		</div>
+	</div>
+	<div layout="row">
+		<md-input-container flex="45">
+			<label>توضیح مختصر *</label>
+			<textarea required name="brief" maxlength="100" ng-model="category.brief" rows="2"></textarea>
+		</md-input-container>
+	</div>
+
+	<p class="hint"><i>دسته‌بندی‌ها در اپلیکیشن بر اساس ترتیبی که اینجا وارد میکیند نمایش داده میشود <b>(ترتیب صعودی)</b></i></p>
+	<div layout="row">
+	  <md-input-container flex="10">
+		  <label>ترتیب *</label>
+		  <input type="number" required name="priority" ng-model="category.priority" maxlength="5">
+	  </md-input-container>
+	</div>
+	
+    <fieldset class="standard margin-input-container md-padding">
+		<legend>آیکن *</legend>
+		<div layout="row" layout-align="center center">
+			<input class="padding-top-bottom" type="file" name="icon" onchange="angular.element(this).scope().onFileSelect(this.files)" flex/>
+			<md-button class="md-icon-button" ng-click="viewImage($event, 'uploads/category/'+category.icon)" ng-if="!isNewEntry()">
+				<md-icon>wallpaper</md-icon>
+			</md-button>
+		</div>
+		<div ng-if="!icon.valid" class="red-alert">فقط فرمت PNG با حجم کمتر از ۵۰۰ کیلوبایت</div>
+
+		<p class="hint">
+			۱- اندازه توصیه شده ارتفاع و طول ۲۰۰ پیکسل است<br>
+			۲- تصویر فقط یک رنگ داشته باشد<br>
+			۳- زمینه تصویر شفاف باشد<br><br>
+			<a target="_blank" href="http://blog.dream-space.web.id/?p=146">مشاهده نمونه آیکن</a>
+		</p>
+
+    </fieldset>
+
+	<br>
+	<md-divider></md-divider>
+	<md-checkbox ng-model="category.draft" ng-true-value="1" ng-false-value="0">ذخیره به عنوان پیش نویس</md-checkbox>
+	<p class="hint">زمانی که دسته بندی به عنوان <i>پیش نویس</i> ذخیره شود، چیزی به کاربر نمایش داده نمیشود</p>
+
+	<br><br>
+    <em> (*) موارد الزامی</em>
+
+    <div class="md-actions md-padding" layout="row">
+		<span flex></span>
+		<md-button ng-if="!submit_loading" class="md-warn" ng-click="cancel()" > لغو </md-button>
+		<md-button ng-if="!submit_loading" ng-disabled="!isReadySubmit() || thisForm.$invalid" ng-click="submit(category)" class="md-raised md-primary"> {{button_text}} </md-button>
+		<md-progress-circular ng-if="submit_loading" class="md-accent" md-mode="indeterminate" md-diameter="30px"></md-progress-circular>
+    </div>
+  </form>
+</md-card>

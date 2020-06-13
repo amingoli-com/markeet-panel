@@ -1,0 +1,47 @@
+<md-card class="md-whiteframe-1dp">
+<div class="table-responsive-vertical">
+  <table id="table" class="table table-hover">
+		<thead>
+		<tr >
+			<th width="2%">ردیف</th>
+			<th width="30%">نام دستگاه</th>
+			<th width="20%">سریال</th>
+			<th width="10%">نسخه سیستم عامل</th>
+			<th width="10%">نسخه اپلیکیشن</th>
+			<th width="10%">بروز شده در</th>
+			<th width="10%" style="text-align:center;">عملیات</th>
+		</tr>
+		</thead>
+
+		<tbody>
+		  	<tr ng-repeat="f in fcm track by f.id">
+			    <td data-title="No">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
+			    <td data-title="Device Name">{{f.device}}</td>
+			    <td data-title="Serial">{{f.serial}}</td>
+			    <td data-title="OS Version">{{f.os_version}}</td>
+			    <td data-title="App Version">{{f.app_version}}</td>
+			    <td data-title="Update">{{f.last_update | date:'dd MMM yy'}}</td>
+				<td data-title="Action">
+					<div layout="row" layout-align="center">
+						<md-button layout-align="center" style="transform: rotateZ(180deg)" class="md-btn-small" ng-click="sendNotification($event, f)">
+							<md-icon class="md-ic-small" ng-style="{'font-size': '15px'}">send</md-icon>
+							<md-tooltip>ارسال اعلان</md-tooltip>
+						</md-button>
+					</div>
+				</td>
+		  	</tr>
+	  	</tbody>
+	</table>
+	<div ng-if="loading" style="text-align:center;" colspan="10">
+		<p>درحال بارگذاری</p>
+		<md-progress-linear md-mode="indeterminate"></md-progress-linear>
+	</div>
+	
+</div>
+
+<!--pagination view-->
+<section layout="row" class="sub-menu-bg" flex>
+	<cl-paging flex cl-pages="paging.total" , cl-steps="paging.step" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"></cl-paging>
+</section>
+
+</md-card>

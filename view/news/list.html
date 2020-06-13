@@ -1,0 +1,73 @@
+<md-card class="md-whiteframe-1dp">
+	<div class="table-responsive-vertical">
+		<table id="table" class="table table-hover">
+			<thead class="sub-menu-bg" >
+				<tr >
+					<th width="1%" >ردیف</th>
+					<th width="20%">عنوان</th>
+					<th width="3%">وضعیت انتشار</th>
+					<th width="5%">نوع خبر</th>
+					<th width="5%">آخرین بروزرسانی</th>
+					<th width="5%">عملیات</th>
+				</tr>
+			</thead>
+			<md-divider></md-divider>
+			<tbody>
+				<tr ng-repeat="n in news track by n.id">
+					<td data-title="No">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
+					<td data-title="Title">{{n.title | cut:false:50:' ...'}}</td>
+					<td data-title="Type">
+						<draft ng-if="n.draft == 1">پیش نویس</draft>
+						<publish ng-if="n.draft != 1">منتشر شده</publish>
+					</td>	
+					<td data-title="Status">
+						<featured ng-if="n.status=='FEATURED'">ویژه</featured>
+						<normal ng-if="n.status!='FEATURED'">عادی</normal>
+					</td>
+					<td data-title="Update">{{n.last_update | date:'dd MMM yy'}}</td>
+					<td data-title="Action">
+						<md-menu md-position-mode="target-right target" >
+							<md-button class="md-btn-small" ng-click="$mdOpenMenu($event)">
+								<md-icon class="md-ic-small" ng-style="{'font-size': '15px'}">more_vert</md-icon>
+							</md-button>
+							<md-menu-content width=3>
+						   <!-- <md-title ><b>{{n.title}}</b></md-title>-->
+								<md-menu-item>
+									<md-button layout-fill md-ink-ripple ng-click="detailsNewsInfo($event, n)">
+										<md-icon md-class="md-primary" md-menu-align-target>launch</md-icon>نمایش
+									</md-button>
+								</md-menu-item>
+								<md-menu-item>
+									<md-button layout-fill md-ink-ripple ng-click="editNewsInfo($event, n)">
+										<md-icon md-class="md-primary" md-menu-align-target>create</md-icon>ویرایش
+									</md-button>
+								</md-menu-item>
+								<md-menu-item ng-if="n.draft == 1">
+									<md-button layout-fill md-ink-ripple ng-click="publishDialog($event, n)">
+										<md-icon md-class="md-primary" md-menu-align-target>check_circle</md-icon>انتشار
+									</md-button>
+								</md-menu-item>
+								<md-menu-item>
+									<md-button layout-fill md-ink-ripple ng-click="deleteNewsInfo($event, n)">
+										<md-icon md-class="md-primary" md-menu-align-target>delete</md-icon>حذف
+									</md-button>
+								</md-menu-item>
+							</md-menu-content>  
+						</md-menu>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div ng-if="loading" style="text-align:center;" colspan="10">
+			<p>درحال بارگذاری</p>
+			<md-progress-linear md-mode="indeterminate"/>
+		</div>
+	</div>
+
+	<!--pagination view-->
+	<md-divider></md-divider>
+	<section layout="row" class="sub-menu-bg" flex>
+		<cl-paging flex cl-pages="paging.total" , cl-steps="paging.step" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"/>
+	</section>
+
+</md-card>

@@ -1,0 +1,35 @@
+<md-dialog layout="column" flex="60" aria-label="dialog place">
+  <form role="form" name="thisForm">
+    <md-toolbar style="{{success ? '' : 'background-color:red;'}}">
+      <div class="md-toolbar-tools">
+        <md-icon style="margin:5px;" flex="5">{{success ? 'assignment_turned_in' : 'error'}}</md-icon>
+        <h2>فرایند سفارش {{success ? 'با موفقیت انجام شد!' : 'با شکست مواجه شد'}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="edit()" ng-if="!success">
+          <md-icon aria-label="Close dialog">create</md-icon>
+          <md-tooltip>ویرایش سفارش</md-tooltip>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon aria-label="Close dialog">clear</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content class="autoScroll">
+      <p ng-if="success">سفارش توسط '{{order.buyer}}' دریافت شد</p>
+      <p ng-if="!success">پردازش سفارشات از خریدار '{{order.buyer}}' انجام نشد ، لطفا جدول سفارش محصول را در زیر مرور کنید</p>
+      <div layout="row">
+        <item flex="5">ردیف</item> <item flex="65"><b>محصول</b></item> <item flex="10"><b>تعداد</b></item> <item flex="20"><b>پیام</b></item>
+      </div>
+      <md-divider></md-divider>
+
+      <div layout="row" ng-repeat="pod in resp.data">
+        <item flex="5">{{$index+1}}</item><item flex="65">{{pod.product_name}}</item> <item flex="10">{{pod.amount}}</item> <item flex="20">{{pod.msg}}</item>
+      </div>
+      <md-divider></md-divider>
+    </md-dialog-content>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button md-no-ink ng-click="cancel()" class="md-accent md-raised" >بستن</md-button>
+    </div>
+  </form>
+</md-dialog>

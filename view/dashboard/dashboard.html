@@ -1,0 +1,100 @@
+<md-card class="md-whiteframe-1dp md-padding">
+
+    <div layout="row" layout-sm="column">
+        <md-card-content flex>
+            <p class="md-title title-no-top">سفارشات</p>
+            <md-divider></md-divider>
+            <div layout="row">
+                <item flex="40">در انتظار</item> <item flex="5">:</item> <item flex>{{order.waiting}}</item>
+            </div>
+            <div layout="row">
+                <item flex="40">تحویل داده شده</item> <item flex="5">:</item> <item flex>{{order.processed}}</item>
+            </div>
+            <div layout="row">
+                <item flex="40">مجموع سفارشات</item> <item flex="5">:</item> <item flex>{{order.total}}</item>
+            </div>
+        </md-card-content>
+        <md-card-content flex></md-card-content>
+    </div>
+    <div layout="row" layout-sm="column">
+        <md-card-content flex>
+            <p class="md-title title-no-top">اطلاعات محصول</p>
+            <md-divider></md-divider>
+            <div layout="row">
+                <item flex="40">منتشر شده</item> <item flex="5">:</item> <item flex>{{product.published}}</item>
+            </div>
+            <div layout="row">
+                <item flex="40">پیش نویس</item> <item flex="5">:</item> <item flex>{{product.draft}}</item>
+            </div>
+            <md-divider></md-divider>
+            <div layout="row">
+                <item flex="40">آماده ارسال</item> <item flex="5">:</item> <item flex>{{product.ready_stock}}</item>
+            </div>
+            <div layout="row">
+                <item flex="40">تمام شده</item> <item flex="5">:</item> <item flex>{{product.out_of_stock}}</item>
+            </div>
+            <div layout="row">
+                <item flex="40">معلق</item> <item flex="5">:</item> <item flex>{{product.suspend}}</item>
+            </div>
+        </md-card-content>
+        <md-card-content flex>
+            <p class="md-title title-no-top">دسته بندی</p>
+            <md-divider></md-divider>
+            <div layout="row">
+                <item flex="40">منتشر شده</item> <item flex="5">:</item> <item flex>{{category.published}}</item>
+            </div>
+            <div layout="row">
+                <item flex="40">پیش نویس</item> <item flex="5">:</item> <item flex>{{category.draft}}</item>
+            </div>
+        </md-card-content>
+    </div>
+</md-card>
+<br>
+<md-card class="md-whiteframe-1dp md-padding">
+    <div layout="row" layout-sm="column">
+        <md-card-content flex>
+            <p class="md-title title-no-top">اخبار</p>
+            <md-divider></md-divider>
+            <div layout="row">
+                <item flex="40">ویژه</item> <item flex="5">:</item> <item flex>{{news.featured}}  ( حداکثر {{setting.featured_news}} )</item>
+            </div>
+            <div layout="row">
+                <item flex="40">منتشر شده</item> <item flex="5">:</item> <item flex>{{news.published}}</item>
+            </div>
+            <div layout="row">
+                <item flex="40">پیش نویس</item> <item flex="5">:</item> <item flex>{{news.draft}}</item>
+            </div>
+        </md-card-content>
+        <md-card-content flex>
+            <p class="md-title title-no-top">ورژن اپ</p>
+            <md-divider></md-divider>
+            <div layout="row">
+                <item flex="40">فعال</item> <item flex="5">:</item> <item flex>{{app.active}}</item>
+            </div>
+            <div layout="row">
+                <item flex="40">غیرفعال</item> <item flex="5">:</item> <item flex>{{app.inactive}}</item>
+            </div>
+        </md-card-content>
+    </div>
+    <div layout="row" layout-sm="column">
+        <md-card-content flex>
+            <p class="md-title title-no-top">تنظیمات</p>
+            <md-divider></md-divider>
+            <div layout="row">
+                <item flex="40">واحد پول</item> <item flex="5">:</item> <item flex>{{setting.currency}}</item>
+            </div>
+            <div layout="row">
+                <item flex="40">مالیات</item> <item flex="5">:</item> <item flex>{{setting.tax}} %</item>
+            </div>
+        </md-card-content>
+        <md-card-content flex>
+            <p class="md-title title-no-top">نوتیفیکشن ها</p>
+            <md-divider></md-divider>
+            <div layout="row">
+                <item flex="40">کاربران</item> <item flex="5">:</item> <item flex>{{notification.users}}</item>
+            </div>
+        </md-card-content>
+    </div>
+</md-card>
+
+<br>

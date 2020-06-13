@@ -1,0 +1,81 @@
+<md-dialog layout="column" flex="100" aria-label="dialog product">
+    <form role="form" name="thisForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>اضافه کردن محصول به سفارش</h2>
+                <span flex></span>
+                <md-card flex="20">
+                    <md-input-container flex md-no-float class="header-table-display">
+                        <md-select ng-model="category_id" class="option-plain" ng-change="loadPages()" aria-label="category product">
+                            <md-option ng-repeat="c in categories_data" value="{{c.id}}">{{c.name}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </md-card>
+                <!-- Search layout -->
+                <md-card flex="30">
+                    <div layout="row">
+                        <md-input-container flex md-no-float style="padding:6px;margin-left:5px"><input ng-model="q" id="search_input" class="search" placeholder="Search"></md-input-container>
+                        <md-icon ng-click="submitSearch($event, q)" style="color:#4DB151;margin-right:10px;cursor:pointer;">search</md-icon>
+                    </div>
+                </md-card>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon aria-label="Close dialog">clear</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content class="autoScroll">
+            <div class="table-responsive-vertical">
+                <table id="table" class="table table-hover">
+                    <thead class="sub-menu-bg" >
+                    <tr >
+                        <th width="1%">ردیف</th>
+                        <th width="20%">نام</th>
+                        <th width="3%">وضعیت انتشار</th>
+                        <th width="5%">قیمت</th>
+                        <th width="5%">تخفیف</th>
+                        <th width="3%">موجودی</th>
+                        <th width="5%">وضعیت محصول</th>
+                        <th width="3%">عملیات</th>
+                    </tr>
+                    </thead>
+                    <md-divider></md-divider>
+                    <tbody>
+                    <tr ng-repeat="p in product">
+                        <td data-title="No">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
+                        <td data-title="Name">{{p.name}}</td>
+                        <td data-title="Type">
+                            <draft ng-if="p.draft == 1">پیش نویس</draft>
+                            <publish ng-if="p.draft != 1">منتشر شده</publish>
+                        </td>
+                        <td data-title="Price">{{p.price}}</td>
+                        <td data-title="Stock">{{p.price_discount}}</td>
+                        <td data-title="Stock">{{p.stock}}</td>
+                        <td data-title="Status">
+                            <ready-stock ng-if="p.status=='READY STOCK'">آماده ارسال</ready-stock>
+                            <suspend ng-if="p.status=='SUSPEND'">معلق</suspend>
+                            <out-of-stock ng-if="p.status=='OUT OF STOCK'">تمام شده</out-of-stock>
+                        </td>
+                        <td data-title="Action">
+                            <div layout="row" layout-align="left" ng-if="!isExistAtProductOrder(p.id)">
+                                <md-button layout-align="center" class="md-btn-small" ng-click="addItem($event, p)">
+                                    <md-icon class="md-ic-small ic-small">add_circle</md-icon>
+                                    <md-tooltip>Add To Product Order</md-tooltip>
+                                </md-button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div ng-if="loading" style="text-align:center;" colspan="10">
+                    <p>درحال بارگذاری</p>
+                    <md-progress-linear md-mode="indeterminate"/>
+                </div>
+            </div>
+            <!--pagination view-->
+            <md-divider></md-divider>
+            <section layout="row" class="sub-menu-bg" flex>
+                <cl-paging flex cl-pages="paging.total" , cl-steps="paging.step" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"/>
+            </section>
+        </md-dialog-content>
+    </form>
+</md-dialog>

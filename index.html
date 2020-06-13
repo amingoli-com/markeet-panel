@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html style="direction: rtl">
+
+<head>
+  <meta charset="UTF-8"/>
+  <title>
+  	مدیریت فروشگاه
+  </title>
+  
+  <link rel="icon" type="image/svg+xml" href=”lib/css/icons/web_icon.svg”>
+  <link rel="shortcut icon" type="image/x-icon" href=”lib/css/icons/web_icon.svg”>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link href="lib/css/angular-material.min.css" rel="stylesheet prefetch" type="text/css"/>
+  <link href="lib/css/fonts/material.css" rel="stylesheet" type="text/css"/>
+  <link href="lib/css/style.css" rel="stylesheet" type="text/css"/>
+ 
+  <link href='lib/css/fonts/font-awesome.min.css' rel='stylesheet prefetch'/>
+  <link rel="stylesheet" href="lib/css/style-ta.css">
+  <link rel="stylesheet" href="lib/css/colorpicker.css">
+
+  <!--
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular-route.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular-messages.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular-cookies.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular-sanitize.min.js"></script>
+  -->
+
+  <script src="lib/js/angular.min.js"></script>
+  <script src="lib/js/angular-route.min.js"></script>
+  <script src="lib/js/angular-animate.min.js"></script>
+  <script src="lib/js/angular-aria.min.js"></script>
+  <script src="lib/js/angular-material.min.js"></script>
+  <script src="lib/js/angular-messages.min.js"></script>
+  <script src="lib/js/angular-cookies.min.js"></script>
+  <script src="lib/js/angular-sanitize.min.js"></script>
+ 
+  <script src="lib/js/pagination.js"></script>
+  <script src='lib/js/textAngular.js'></script>
+  <script src='lib/js/bootstrap-colorpicker-module.js'></script>
+  
+  <script src="app/app.js"></script>      
+  <script src="app/root.js"></script>
+  <script src="app/request.js"></script> 
+
+  <script src="controller/login.js"></script>
+  <script src="controller/dashboard/dashboard.js"></script>
+  <script src="controller/order/list.js"></script>
+  <script src="controller/order/create.js"></script>
+  <script src="controller/product/list.js"></script>
+  <script src="controller/product/create.js"></script>
+  <script src="controller/category/list.js"></script>
+  <script src="controller/category/create.js"></script>
+  <script src="controller/news/list.js"></script>
+  <script src="controller/news/create.js"></script>
+  <script src="controller/notification/list.js"></script>
+  <script src="controller/application/list.js"></script>
+  <script src="controller/setting/setting.js"></script>
+  <script src="controller/about/about.js"></script>
+
+</head>
+
+<body>
+	<div ng-app="App" ng-controller="RootCtrl as ctl" layout="row" layout-fill ng-cloak>
+
+		<!-- Sliding Menu -->
+		<md-sidenav ng-hide="isLogin" class="md-sidenav-left md-whiteframe-z2" role="sidenav" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+			<!-- menu header -->
+			<md-toolbar class="nav-header md-hue-2" layout-align="end end">
+				<div class="md-toolbar-tools" layout layout-padding>
+					
+					<md-icon md-svg-src="lib/css/icons/web_icon.svg" class="material-icons md-36"></md-icon>
+					<div layout="column" layout-padding>
+						<span class="md-body-2">سلام {{user.name}}</span>
+						<span class="md-caption">{{user.email}}</span>
+					</div>
+					<span flex></span>
+					
+					<md-menu md-position-mode="target-right target" >
+						<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+							<md-icon>more_vert</md-icon>
+						</md-button>
+						<md-menu-content width=3>
+							<md-menu-item>
+							<md-button layout-fill md-ink-ripple ng-click="directHref('#setting')">
+								تنظیمات
+							</md-button>
+							</md-menu-item>
+
+							<md-menu-item>
+							<md-button layout-fill md-ink-ripple ng-click="doLogout($event)">
+								خروج
+							</md-button>
+							</md-menu-item>
+						</md-menu-content>
+					</md-menu>
+				</div>
+			</md-toolbar>
+
+			<!-- SIDE MENU -->
+			<md-content role="navigation">
+				<div ng-repeat="action in sidenav.actions">
+				<md-list-item ng-click="directHref(action.link)" ng-if="!action.sub">
+					<md-icon>{{action.icon}}</md-icon>&nbsp;&nbsp;
+					<p class="md-body-2" style="text-align: right">{{action.name}}</p>
+				</md-list-item>
+				
+				<!-- for handle sub menu -->
+				<md-list-item ng-if="action.sub" ng-click="action.sub_expand = !action.sub_expand">
+					<md-icon>{{action.icon}}</md-icon>
+					<p class="md-body-2">{{action.name}}</p>
+					<span flex></span>
+					<md-icon class="md-primary md-icon-button">{{action.sub_expand ? 'arrow_drop_down' : 'arrow_drop_up'}}</md-icon>
+				</md-list-item>
+				<md-list-item class="sub-menu-bg" ng-show="action.sub_expand" ng-repeat="sub_act in action.sub_menu" ng-click="subMenuAction($event, sub_act)">
+					<p class="md-body-2 sub-menu-sidenav">{{sub_act.name}}</p>
+				</md-list-item>
+				</div>
+			</md-content>
+
+		</md-sidenav>
+
+		<div tabindex="-1" layout="column" role="main" class="flex md-layout-column">
+			<md-toolbar ng-hide="isLogin" role="toolbar">
+				<div class="md-toolbar-tools">
+					<!-- toogle button -->
+					<md-button class="md-icon-button" ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
+						<md-icon>menu</md-icon>
+					</md-button>
+
+					<!-- toolbar title -->
+					<h4 class="md-title">{{pagetitle}}</h4> <span flex></span>
+					
+					<!-- Search layout -->
+					<md-card flex ng-if="search_show">
+						<div layout="row">
+							<md-icon ng-click="closeSearch($event)" style="color:#BDBDBD;margin-left:10px;cursor:pointer;">close</md-icon>
+							<md-input-container flex md-no-float style="padding:6px;margin-left:5px">		
+								<input ng-model="q" id="search_input" class="search" placeholder="جستجو" ng-keypress="keypressAction($event, q)">
+							</md-input-container>
+							<md-icon ng-click="submitSearch($event, q)" style="color:#4DB151;margin-right:10px;cursor:pointer;">search</md-icon>
+						</div>
+					</md-card>
+
+					<!-- add search action -->
+					<md-button ng-if="search_enable && !search_show" class="md-icon-button" ng-click="searchAction($event)"><md-icon>search</md-icon></md-button>
+					
+					<!-- add button -->
+					<md-button ng-if="toolbar_menu != null" class="md-primary" ng-click="barAction($event)">{{toolbar_menu.title}}</md-button>
+
+					<!-- more -->
+					<md-menu md-position-mode="target-right target" >
+						<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+						  <md-icon>more_vert</md-icon>
+						</md-button>
+						<md-menu-content width=3>
+						  <md-menu-item> <md-button layout-fill md-ink-ripple ng-click="directHref('#setting')">
+						  	تنظیمات
+						  </md-button> </md-menu-item>
+						  <md-menu-item> <md-button layout-fill md-ink-ripple ng-click="doLogout($event)">
+						  	خروج
+						  </md-button></md-menu-item>
+						</md-menu-content>
+					</md-menu>
+				</div>
+			</md-toolbar>
+
+			<!-- CONTENT PAGE -->
+			<md-content layout md-scroll-y flex class="md-padding" ng-style="{'background' : bgColor}">
+				<div ng-view layout-fill flex></div>
+			</md-content>
+
+		</div>
+	</div>
+</body>
+
+</html>

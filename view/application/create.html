@@ -1,0 +1,47 @@
+<md-dialog layout="column" flex="50" aria-label="dialog category">
+  <form role="form" name="thisForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 flex>{{title}}</h2>
+        <md-button class="md-icon-button" ng-click="cancel()"> <md-icon aria-label="Close dialog">clear</md-icon> </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content class="autoScroll" style="max-width:800px;max-height:810px;">
+      <p class="hint" ng-if="!is_new">
+        هنگام <b> غیرفعال کردن</b> یا <b>حذف</b> نسخه دقت فرمایید،
+         در صورت <b>حذف</b> یا <b>غیرفعال کردن </b>نسخه‌ایی از برنامه، کاربر نمیتواند از آن نسخه در تلفن خود استفاده کند.
+        <br/>
+        حتما از انتشار بروزترین نسخه خود در گوگل پلی اطمینان حاصل بفرمایید.
+      </p>
+      <div layout="row">
+		<md-input-container flex="30">
+          <label>کد نسخه *</label>
+          <input required type="number" name="version_code" ng-model="app.version_code" maxlength="11">
+        </md-input-container>
+      </div>
+	  
+      <div layout="row">
+        <md-input-container flex="50">
+          <label>نام نسخه *</label>
+          <input required name="version_name" ng-model="app.version_name" maxlength="50">
+        </md-input-container>
+      </div>
+
+	  <md-input-container flex="30">
+		 <md-checkbox ng-model="app.active" ng-true-value="1" ng-false-value="0">این نسخه فعال است</md-checkbox>
+	  </md-input-container>
+    </md-dialog-content>
+
+    <div class="md-actions md-padding" layout="row">
+      <span flex></span>
+      <md-button ng-if="!submit_loading"  class="md-warn" ng-click="hide()" >
+       لغو
+      </md-button>
+      <md-button ng-if="!submit_loading" ng-disabled="isClean() || thisForm.$invalid" ng-click="submit(app)" style="margin-right:20px;" class="md-raised md-primary">
+        {{buttonText}}
+      </md-button>
+      <md-progress-circular ng-if="submit_loading" class="md-accent" md-mode="indeterminate" md-diameter="30px"></md-progress-circular>
+    </div>
+  </form>
+</md-dialog>

@@ -1,0 +1,163 @@
+<?php require_once("../../language/en.php"); ?>
+<html>
+
+<md-card class="md-whiteframe-1dp md-padding">
+	<md-card-content>
+		<form role="form" name="thisForm">
+			<h2 class="md-title">
+                تنظیمات
+            </h2>
+			<md-divider></md-divider>
+			<p class="hint"><b>
+					مالیات :
+                </b>
+                مالیات بر ارزش افزوده در هر معامله اضافه می شود
+			<br><b>
+                    اخبار ویژه :
+                </b>
+                نمایش حداکثر اخبار ویژه در اسلایدر صفحه اصلی اپلیکیشن (مقدار پیشنهادی 5)
+            </p>
+
+			<br>
+			<div layout="row">
+				<md-input-container flex="30">
+					<label>
+						واحد پول
+					</label>
+					<md-select ng-model="selected_currency">
+						<md-option ng-repeat="cur in arr_currency" value="{{cur.code}}" selected="{{cur.code===conf_currency?'selected':''}}"> 
+							{{cur.code}} - {{cur.name}} 
+						</md-option>
+					</md-select>
+				</md-input-container>
+			</div>
+
+			<div layout="row" layout-align="start center">
+				<md-input-container flex="10">
+					<label>مالیات</label>
+					<input type="number" required name="tax" ng-model="conf_tax" maxlength="4">
+				</md-input-container>
+				<legend flex="5"><b>%</b></legend>
+				<md-input-container flex="15">
+					<label>اخبار ویژه</label>
+					<input type="number" required name="featured_news" ng-model="conf_featured_news" maxlength="1">
+				</md-input-container>
+			</div>
+
+			<div layout="row" layout-align="start start">
+				<md-input-container flex="50">
+					<label>حمل و نقل</label>
+					<md-chips ng-model="conf_shipping" required></md-chips>
+				</md-input-container>
+				<md-button md-no-ink class="md-primary" ng-click="resetShipping()" style="margin-top:20px;">
+					تنظیم مجدد
+				</md-button>
+			</div>
+
+			<br>
+			<h2 class="md-title">ارسال گزارش ها به ایمیل</h2>
+			<md-divider></md-divider>
+			<p class="hint">
+				<b>اطلاع رسانی سفارش جدید با ایمیل : </b> گزارش سفارش محصول ، ایمیل برای خریداران و ایمیل صندوق داران ارسال میشود
+				<br><b>اطلاع رسانی سفارش های پردازش شده با ایمیل : </b>اعلان تغییر وضعیت سفارش به حالت پردازش شده فقط به ایمیل خریدار ارسال می شود
+				<br><b>پاسخ به ایمیل : </b>وقتی خریدار به ایمیل شما پاسخ می دهد ، از طریق این ایمیل دریافت می شود تا نامه الکترونیکی را پر کنید</p>
+			<br>
+
+			<div layout="column" layout-align="start start">
+				<md-checkbox ng-model="conf_email_notif_on_order">اطلاع رسانی سفارش جدید با ایمیل</md-checkbox>
+				<md-checkbox ng-model="conf_email_notif_on_order_process">اطلاع رسانی سفارش های پردازش شده با ایمیل</md-checkbox>
+			</div>
+			<br><br>
+			<div layout="row" layout-align="start center">
+				<md-input-container flex="30">
+					<label>پاسخ به ایمیل</label>
+					<input type="text" required ng-model="conf_email_reply_to" maxlength="50">
+				</md-input-container>
+			</div>
+
+			<div layout="row" layout-align="start start">
+				<md-input-container flex="50">
+					<label>ایمیل صندوق داران</label>
+					<md-chips ng-model="conf_email_receiver" required readonly="!conf_email_notif_on_order"></md-chips>
+				</md-input-container>
+				<md-button md-no-ink class="md-primary" ng-click="resetEmailReceiver()" style="margin-top:20px;">تنظیم مجدد</md-button>
+			</div>
+			<br><br>
+
+			<div layout="row" layout-align="end center" flex="100">
+				<md-button ng-if="!submit_loading_conf" ng-disabled="thisForm.$invalid || !isReadySubmitConf()" ng-click="submitConf()" class="md-raised md-accent">
+					دخیره
+				</md-button>
+				<md-progress-circular ng-if="submit_loading_conf" class="md-accent" md-mode="indeterminate" md-diameter="30px"></md-progress-circular>
+			</div>
+
+		</form>
+	</md-card-content>
+</md-card>
+
+<br>
+<md-card class="md-whiteframe-1dp md-padding">
+	<md-card-content>
+		<h2 class="md-title">مدیریت کاربران</h2>
+		<form role="form" name="thisFormUser">
+			<div layout="row">
+				<md-input-container flex="30">
+					<label>نام</label>
+					<input name="name" minlength="1" maxlength="50" ng-model="userdata.name" required />
+					<div ng-messages="thisForm.name.$error">
+						<div ng-message='required'>الزامی</div>
+						<div ng-message='minlength'>خیلی کوتاهه</div>
+					</div>
+				</md-input-container>
+				<div flex="5"></div>
+				<md-input-container flex="30">
+					<label>ایمیل</label>
+					<input type="email" minlength="5" maxlength="50" name="email" ng-model="userdata.email" required />
+					<div ng-messages="thisForm.email.$error">
+						<div ng-message='required'>الزامی</div>
+						<div ng-message='minlength'>خیلی کوتاهه</div>
+					</div>
+				</md-input-container>
+			</div>
+
+
+			<div layout="row">
+				<md-input-container flex="30">
+					<label>نام کاربری</label>
+					<input name="username" minlength="1" maxlength="20" ng-model="userdata.username" required />
+					<div ng-messages="thisForm.username.$error">
+						<div ng-message='required'>الزامی</div>
+						<div ng-message='minlength'>خیلی کوتاهه</div>
+					</div>
+				</md-input-container>
+			</div>
+			<div layout="row">
+				<md-input-container flex="30">
+					<label>رمزعبور</label>
+					<input type="password" name="password" ng-model="userdata.password" required />
+					<div ng-messages="thisForm.password.$error">
+						<div ng-message='required'>الزامی</div>
+					</div>
+				</md-input-container>
+				<div flex="5"></div>
+				<md-input-container flex="30">
+					<label>رمزعبور را دوباره تایپ کنید</label>
+					<input type="password" name="re_password" ng-model="re_password" />
+					<div ng-if="!isPasswordMatch() || !re_passwordValid" class="red-alert">رمز عبور مطابقت ندارد</div>
+				</md-input-container>
+			</div>
+			<div layout="row" layout-align="end center" flex="100">
+				<md-button ng-if="!submit_loading" ng-disabled="!isPasswordMatch() || thisFormUser.$invalid || demo_version || isClean()" ng-click="submit(true)" class="md-raised md-accent">
+					اضافه کردن کاربر جدید
+				</md-button>
+				<md-button ng-if="!submit_loading" ng-disabled="!isPasswordMatch() || thisFormUser.$invalid || demo_version || isClean()" ng-click="submit(false)" class="md-raised md-accent">
+					بروزرسانی
+				</md-button>
+				<md-progress-circular ng-if="submit_loading" class="md-accent" md-mode="indeterminate" md-diameter="30px"></md-progress-circular>
+			</div>
+
+		</form>
+	</md-card-content>
+</md-card>
+</html>
+

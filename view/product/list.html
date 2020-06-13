@@ -1,0 +1,105 @@
+<div layout-sm="column" layout-md="row" layout-lg="row" layout-gt-lg="row">
+	<md-card flex="35">
+		<md-input-container flex md-no-float class="header-table-display">
+			<md-select ng-model="category_id" class="option-plain" aria-label="category product">
+				<md-option ng-repeat="c in categories_data" value="{{c.id}}">{{c.name}}</md-option>
+			</md-select>
+		</md-input-container>
+	</md-card>
+	<md-card flex="5">
+		<md-input-container flex md-no-float class="header-table-display">
+			<md-select ng-model="max_item" class="option-plain" aria-label="Max Item">
+				<md-option ng-repeat="m in max_item_array" value="{{m.value}}">{{m.text}}</md-option>
+			</md-select>
+		</md-input-container>
+	</md-card>
+	<md-card flex="15">
+		<md-input-container flex md-no-float class="header-table-display">
+			<md-select ng-model="sort_by_selected" class="option-plain" aria-label="Sort By">
+				<md-option ng-repeat="sb in sort_by" value="{{sb.id}}">{{sb.label}}</md-option>
+			</md-select>
+		</md-input-container>
+	</md-card>
+
+</div>
+
+<md-card class="md-whiteframe-1dp">
+	<div class="table-responsive-vertical">
+		<table id="table" class="table table-hover">
+			<thead class="sub-menu-bg" >
+				<tr>
+					<th width="1%">ردیف</th>
+					<th width="20%">نام</th>
+					<th width="3%">وضعیت انتشار</th>
+					<th width="5%">قیمت</th>
+					<th width="5%">تخفیف</th>
+					<th width="3%">موجودی</th>
+					<th width="10%">وضعیت محصول</th>
+					<th width="7%">بروز شده در</th>
+					<th width="5%">عملیات</th>
+				</tr>
+			</thead>
+			<md-divider></md-divider>
+			<tbody class="as">
+				<tr ng-repeat="p in product track by p.id">
+					<td data-title="No">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
+					<td data-title="Name">{{p.name | cut:false:40:' ...'}}</td>
+					<td data-title="Type">
+						<draft ng-if="p.draft == 1">پیش نویس</draft>
+						<publish ng-if="p.draft != 1">منتشر شده</publish>
+					</td>
+					<td data-title="Price">{{p.price}}</td>
+					<td data-title="Stock">{{p.price_discount}}</td>
+					<td data-title="Stock">{{p.stock}}</td>
+					<td data-title="Status">
+						<ready-stock ng-if="p.status=='READY STOCK'">آماده ارسال</ready-stock>
+						<suspend ng-if="p.status=='SUSPEND'">معلق</suspend>
+						<out-of-stock ng-if="p.status=='OUT OF STOCK'">تمام شده</out-of-stock>
+					</td>
+					<td data-title="Update">{{p.last_update | date:'yyyy/MM/dd ساعت HH:mm'}}</td>
+					<td data-title="Action">
+						<md-menu md-position-mode="target-right target" >
+							<md-button class="md-btn-small" ng-click="$mdOpenMenu($event)">
+								<md-icon class="md-ic-small" ng-style="{'font-size': '15px'}">more_vert</md-icon>
+							</md-button>
+							<md-menu-content width=3>
+							<!--<md-title class="md-padding"><b>{{p.name}}</b></md-title>-->
+								<md-menu-item>
+									<md-button layout-fill md-ink-ripple ng-click="detailsProduct($event, p)">
+										<md-icon md-class="md-primary" md-menu-align-target>launch</md-icon>نمایش
+									</md-button>
+								</md-menu-item>
+								<md-menu-item>
+									<md-button layout-fill md-ink-ripple ng-click="editProduct($event, p)">
+										<md-icon md-class="md-primary" md-menu-align-target>create</md-icon>ویرایش
+									</md-button>
+								</md-menu-item>
+								<md-menu-item ng-if="p.draft == 1">
+									<md-button layout-fill md-ink-ripple ng-click="publishDialog($event, p)">
+										<md-icon md-class="md-primary" md-menu-align-target>check_circle</md-icon>انتشار
+									</md-button>
+								</md-menu-item>
+								<md-menu-item>
+									<md-button layout-fill md-ink-ripple ng-click="deleteProduct($event, p)">
+										<md-icon md-class="md-primary" md-menu-align-target>delete</md-icon>حذف
+									</md-button>
+								</md-menu-item>
+							</md-menu-content>
+						</md-menu>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div ng-if="loading" style="text-align:center;" colspan="10">
+			<p>درحال بارگذاری</p>
+			<md-progress-linear md-mode="indeterminate"/>
+		</div>
+	</div>
+
+	<!--pagination view-->
+	<md-divider></md-divider>
+	<section layout="row" class="sub-menu-bg" flex>
+		<cl-paging flex cl-pages="paging.total" , cl-steps="paging.step" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"/>
+	</section>
+
+</md-card>

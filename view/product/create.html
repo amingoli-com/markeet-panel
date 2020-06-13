@@ -1,0 +1,102 @@
+<md-card class="md-whiteframe-1dp md-padding">
+  <form role="form" name="thisForm" id="thisForm" novalidate class="md-padding">
+
+    <md-input-container flex="100">
+		<label>نام محصول *</label>
+		<input required name="name" ng-model="product.name" maxlength="100">
+    </md-input-container>
+
+	<div layout="row">
+		<md-input-container flex="40">
+			<label>قیمت *</label>
+			<input type="number" required name="price" ng-model="product.price" maxlength="13">
+		</md-input-container>
+		<div flex="5"></div>
+		<md-input-container flex="20">
+			<label>موجودی *</label>
+			<input type="number" required name="stock" ng-model="product.stock" maxlength="10">
+		</md-input-container>
+	</div>
+
+	<div layout="row">
+	  <md-input-container flex="40">
+		  <label>نخفیف (صفر یعنی تخفیف ندارد ) *</label>
+		  <input type="number" value="0" required name="price_discount" ng-model="product.price_discount" maxlength="13">
+	  </md-input-container>
+	</div>
+
+    <div layout="row">
+		<md-input-container flex="30">
+			<label>وضعیت محصول *</label>
+			<md-select required ng-model="product.status">
+				<md-option value="READY STOCK">آماده ارسال</md-option>
+				<md-option value="OUT OF STOCK">تمام شده</md-option>
+				<md-option value="SUSPEND">معلق</md-option>
+			</md-select>
+		</md-input-container>
+    </div>
+
+    <fieldset class="standard margin-input-container">
+		<legend>دسته بندی *</legend>
+		<md-input-container>
+			<div layout="row" layout-wrap>
+				<div name="category" flex="50" ng-repeat="i in categories_data">
+					<md-checkbox ng-checked="isCategorySelected(i, category_selected)" ng-click="toggleCategory(i, category_selected)">
+						<span ng-if="!isCategorySelected(i, category_selected)">{{i.name}}</span>
+						<span ng-if="isCategorySelected(i, category_selected)"><b>{{i.name}}</b></span>
+					</md-checkbox>
+				</div>
+			</div>
+			<div ng-if="!category_valid" class="red-alert">حداقل یک دسته را انتخاب کنید</div>
+		</md-input-container>
+    </fieldset>
+
+    <fieldset class="standard margin-input-container md-padding">
+		<legend>تصویر اصلی *</legend>
+		<div layout="row" layout-align="center center">
+			<input class="padding-top-bottom" type="file" name="image" onchange="angular.element(this).scope().onFileSelect(this.files)" flex/>
+			<md-button class="md-icon-button" ng-click="viewImage($event, 'uploads/product/'+product.image)" ng-if="!isNewEntry()">
+				<md-icon>wallpaper</md-icon>
+			</md-button>
+		</div>
+		<div ng-if="!image.valid" class="red-alert">فقط فرمت های JPG/PNG با حجم کمتر از ۵۰۰ کیلوبایت</div>
+    </fieldset>
+
+    <fieldset class="standard margin-input-container md-padding">
+		<legend>تصاویر دیگر</legend>
+		<div layout="column">
+			<div ng-repeat="i in images">
+				<div layout="row" layout-align="center center">
+					<input class="padding-top-bottom" type="file" onchange="angular.element(this).scope().onFileSelectImages(this.files, angular.element(this).scope().$index)" flex/>
+					<div ng-if="!isNewEntry() && images_obj[$index] != null ">
+						<md-button class="md-icon-button" ng-click="deleteImage($event, images_obj[$index])"><md-icon>clear</md-icon></md-button>
+						<md-button class="md-icon-button" ng-click="viewImage($event, 'uploads/product/'+images_obj[$index].name)"><md-icon>wallpaper</md-icon></md-button>
+					</div>
+				</div>
+				<div ng-if="!images[$index].valid && images[$index].valid!=null" class="red-alert">فقط فرمت های JPG/PNG با حجم کمتر از ۵۰۰ کیلوبایت</div>
+			</div>
+		</div>
+    </fieldset>
+
+	<br>
+	<legend>توضیحات *</legend>
+	<div text-angular="text-angular" required name="description" ng-model="product.description"></div>
+
+	<br><br>
+	<md-divider></md-divider>
+	<md-checkbox ng-model="product.draft" ng-true-value="1" ng-false-value="0" ng-change="draftChanged(product.draft)">ذخیره به عنوان پیش نویس</md-checkbox>
+	<md-checkbox ng-disabled="product.draft==1" ng-model="send_notif">ارسال نوتیفیکشن به کاربر</md-checkbox>
+    <p class="hint">هنگامی که شما به عنوان <i>پیش نویس</i>  ذخیره کنید داده ها محصول نمایش داده نمی شوند</p>
+	<br><br>
+    <em> (*) موارد الزامی</em>
+	<br><br><br>
+    <div layout="row">
+		<span flex></span>
+		<md-button ng-if="!submit_loading" class="md-warn" ng-click="cancel()" > لغو </md-button>
+		<md-button ng-if="!submit_loading" ng-disabled="!isReadySubmit() || thisForm.$invalid" ng-click="submit(product)" class="md-raised md-primary">
+			{{button_text}}
+		</md-button>
+		<md-progress-circular ng-if="submit_loading" class="md-accent" md-mode="indeterminate" md-diameter="30px"></md-progress-circular>
+    </div>
+  </form>
+</md-card>

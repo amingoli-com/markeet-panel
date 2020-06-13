@@ -1,0 +1,112 @@
+<md-card class="md-whiteframe-1dp md-padding">
+  <form role="form" name="thisForm" id="thisForm" novalidate class="md-padding">
+
+	  <!--original = { buyer: null, address: null, email: null, shipping: null, date_ship: now, phone: null, comment: null, status: "WAITING", total_fees: 0 , created_at: now, last_update: now };-->
+	<div layout="row">
+		<md-input-container flex="45">
+			<label>نام خریدار *</label>
+			<input required name="name" ng-model="order.buyer" maxlength="50">
+		</md-input-container>
+	</div>
+
+	<div layout="row">
+		<md-input-container flex="20">
+		  	<label>تلفن *</label>
+		  	<input required name="email" ng-model="order.phone" maxlength="50">
+		</md-input-container>
+		<span flex="5"></span>
+		<md-input-container flex="20">
+			<label>ایمیل *</label>
+			<input required name="email" type="email" ng-model="order.email" maxlength="50">
+		</md-input-container>
+	</div>
+
+	<div layout="row">
+		<md-input-container flex="45">
+			<label>آدرس *</label>
+			<textarea required name="address" maxlength="200" ng-model="order.address" rows="2"></textarea>
+		</md-input-container>
+	</div>
+
+	<div layout="row">
+		<md-input-container flex="20">
+		  	<label>روش ارسال *</label>
+			<md-select required ng-model="order.shipping">
+				<md-option ng-repeat="s in shipping_array" value="{{s}}">{{s}}</md-option>
+			</md-select>
+		</md-input-container>
+		<span flex="5"></span>
+		<md-datepicker required flex="20" ng-model="date_ship" md-placeholder="Date Shipping *" style="padding-top:12px;"></md-datepicker>
+	</div>
+
+	<div layout="row">
+	  	<md-input-container flex="20">
+			<label>وضعیت سفارش *</label>
+			<md-select required ng-model="order.status">
+			  	<md-option value="WAITING">درحال پردازش</md-option>
+			  	<md-option value="CANCEL">مرجوعی/لغو شده</md-option>
+			</md-select>
+	  	</md-input-container>
+	</div>
+	<div layout="row">
+		<md-input-container flex="45">
+		  	<label>توضیحات</label>
+		  	<textarea name="address" maxlength="200" ng-model="order.comment" rows="2"></textarea>
+		</md-input-container>
+	</div>
+	<div>
+		<h4>لیست سفارش : </h4>
+		<md-divider></md-divider>
+		<div layout="row">
+		  	<item flex="5">ردیف</item> <item flex="50">محصولات</item> <item flex="15">قیمت</item> <item flex="5">تعداد</item>
+			<item flex="15" layout="row" layout-align="end center">جمع کل</item>
+			<item flex="10" layout="row" layout-align="center">عملیات</item>
+		</div>
+		<md-divider></md-divider>
+		<div layout="row" ng-repeat="pod in order_details">
+		  	<item flex="5">{{$index+1}}</item><item flex="50">{{pod.product_name}}</item> <item flex="15">{{pod.price_item}}</item> <item flex="5">{{pod.amount}}</item>
+			<item flex="15" layout="row" layout-align="end center">{{getPriceTotal(pod)}} {{conf_currency}}</item>
+			<item flex="10" layout="row" layout-align="center">
+				<div layout="row" layout-align="center">
+					<md-button layout-align="center" class="md-btn-small" ng-click="editProductDialog($event, pod)">
+						<md-icon class="md-ic-small ic-small">create</md-icon>
+					</md-button>
+					<md-button layout-align="center" class="md-btn-small" ng-click="removeProduct(pod)">
+						<md-icon class="md-ic-small ic-small">clear</md-icon>
+					</md-button>
+				</div>
+			</item>
+		</div>
+		<div layout="row">
+			<md-button flex="100" md-no-ink ng-click="addProductDialog($event)" class="md-accent md-raised md-hue-1">افزودن محصول</md-button>
+		</div>
+		<md-divider></md-divider>
+		<div layout="row">
+		  	<item flex="70">جمع</item> <item flex="5">{{amount_total}}</item>
+			<item flex="15" layout="row" layout-align="end center">{{price_total_formatted}} {{conf_currency}}</item>
+		</div>
+		<div layout="row">
+		  	<item flex="75">مالیات ({{order.tax}} %)</item>
+			<item flex="15" layout="row" layout-align="end center">{{price_tax_formatted}} {{conf_currency}}</item>
+		</div>
+		<md-divider></md-divider>
+		<div layout="row">
+		  	<item flex="75">جمع کل سفارش بعد از اضافه کردن مالیات</item>
+			<item flex="15" layout="row" layout-align="end center">{{price_after_tax}} {{conf_currency}}</item>
+		</div>
+		<md-divider></md-divider>
+		<p class="hint" ng-if="!isNewEntry()"><i> * این مالیات ممکن است با مالیات فعلی شما متفاوت باشد ، این مالیات هنگام ارسال سفارش از خریدار محاسبه می کند</i></p>
+	</div>
+	<br><br>
+	<md-checkbox ng-hide="is_new" ng-model="send_email_update">ارسال ایمیل به خریدار</md-checkbox>
+	<br><br>
+    <em> (*) موارد الزامی</em>
+
+    <div class="md-actions md-padding" layout="row">
+		<span flex></span>
+		<md-button ng-if="!submit_loading" class="md-warn" ng-click="cancel()" > لغو </md-button>
+		<md-button ng-if="!submit_loading" ng-disabled="!isReadySubmit() || thisForm.$invalid" ng-click="submit(order)" class="md-raised md-primary"> {{button_text}} </md-button>
+		<md-progress-circular ng-if="submit_loading" class="md-accent" md-mode="indeterminate" md-diameter="30px"></md-progress-circular>
+    </div>
+  </form>
+</md-card>
