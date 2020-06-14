@@ -15,13 +15,13 @@
 
 		<tbody>
 		  	<tr ng-repeat="f in fcm track by f.id">
-			    <td data-title="No">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
-			    <td data-title="Device Name">{{f.device}}</td>
-			    <td data-title="Serial">{{f.serial}}</td>
-			    <td data-title="OS Version">{{f.os_version}}</td>
-			    <td data-title="App Version">{{f.app_version}}</td>
-			    <td data-title="Update">{{f.last_update | date:'dd MMM yy'}}</td>
-				<td data-title="Action">
+			    <td data-title="ردیف">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
+			    <td data-title="نام دستگاه">{{f.device}}</td>
+			    <td data-title="سریال">{{f.serial}}</td>
+			    <td data-title="نسخه سیستم عامل">{{f.os_version}}</td>
+			    <td data-title="نسخه اپلیکیشن">{{f.app_version}}</td>
+			    <td data-title="بروز شده در">{{f.last_update | date:'dd MMM yy'}}</td>
+				<td data-title="عملیات">
 					<div layout="row" layout-align="center">
 						<md-button layout-align="center" style="transform: rotateZ(180deg)" class="md-btn-small" ng-click="sendNotification($event, f)">
 							<md-icon class="md-ic-small" ng-style="{'font-size': '15px'}">send</md-icon>
