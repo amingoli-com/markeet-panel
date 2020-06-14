@@ -1,21 +1,21 @@
 <md-card class="md-whiteframe-1dp">
-<div class="table-responsive-vertical">
-	<table id="table" class="table table-hover">
-		<thead>
+	<div class="table-responsive-vertical">
+		<table id="table" class="table table-hover">
+			<thead>
 			<tr >
 				<th width="1%">ردیف</th>
 				<th width="25%">خریدار</th>
 				<th width="5%">دستگاه</th>
 				<th width="10%">کد سفارش</th>
 				<th width="10%">جمع مبلغ</th>
-				<th width="10%">زمان دریافت</th>
 				<th width="10%">تاریخ ثبت</th>
+				<th width="10%">زمان دریافت</th>
 				<th width="10%">وضعیت</th>
 				<th width="5%">عملیات</th>
 			</tr>
-		</thead>
+			</thead>
 
-		<tbody>
+			<tbody>
 			<tr ng-repeat="po in product_order track by po.id">
 				<td data-title="ردیف">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
 				<td data-title="خریدار">{{po.buyer}}</td>
@@ -31,8 +31,8 @@
 				</td>
 				<td data-title="کد پیگیری">{{po.code}}</td>
 				<td data-title="جمع مبلغ">{{po.total_fees}}</td>
-				<td data-title="زمان دریافت">{{po.date_ship | date:'dd MMM yy'}}</td>
-				<td data-title="تاریخ ثبت">{{po.created_at | date:'dd MMM yy'}}</td>
+				<td data-title="تاریخ ثبت">{{po.created_at | date:'yyyy/MM/dd ساعت HH:mm'}}</td>
+				<td data-title="زمان دریافت">{{po.date_ship | date:'yyyy/MM/dd ساعت HH:mm'}}</td>
 				<td data-title="وضعیت">
 					<waiting ng-if="po.status=='WAITING'">درحال پردازش</waiting>
 					<processed ng-if="po.status=='PROCESSED'">تحویل داده شده</processed>
@@ -44,7 +44,7 @@
 							<md-icon class="md-ic-small" ng-style="{'font-size': '15px'}">more_vert</md-icon>
 						</md-button>
 						<md-menu-content width=3>
-						<!--<md-title class="md-padding">{{po.buyer}}</md-title>-->
+							<!--<md-title class="md-padding">{{po.buyer}}</md-title>-->
 							<md-menu-item>
 								<md-button layout-fill md-ink-ripple ng-click="detailsOrder($event, po)">
 									<md-icon md-class="md-primary" md-menu-align-target>launch</md-icon>نمایش
@@ -76,17 +76,17 @@
 					</md-menu>
 				</td>
 			</tr>
-		</tbody>
-	</table>
-	<div ng-if="loading" style="text-align:center;" colspan="10">
-		<p>درحال بارگذاری</p>
-		<md-progress-linear md-mode="indeterminate"/>
+			</tbody>
+		</table>
+		<div ng-if="loading" style="text-align:center;" colspan="10">
+			<p>درحال بارگذاری</p>
+			<md-progress-linear md-mode="indeterminate"/>
+		</div>
 	</div>
-</div>
 
-<!--pagination view-->
-<section layout="row" class="sub-menu-bg" flex>
-	<cl-paging flex cl-pages="paging.total" , cl-steps="paging.step" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"/>
-</section>
+	<!--pagination view-->
+	<section layout="row" class="sub-menu-bg" flex>
+		<cl-paging flex cl-pages="paging.total" , cl-steps="paging.step" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"/>
+	</section>
 
 </md-card>

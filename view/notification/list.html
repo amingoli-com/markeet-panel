@@ -20,7 +20,7 @@
 			    <td data-title="سریال">{{f.serial}}</td>
 			    <td data-title="نسخه سیستم عامل">{{f.os_version}}</td>
 			    <td data-title="نسخه اپلیکیشن">{{f.app_version}}</td>
-			    <td data-title="بروز شده در">{{f.last_update | date:'dd MMM yy'}}</td>
+			    <td data-title="بروز شده در">{{f.last_update | date:'yyyy/MM/dd ساعت HH:mm'}}</td>
 				<td data-title="عملیات">
 					<div layout="row" layout-align="center">
 						<md-button layout-align="center" style="transform: rotateZ(180deg)" class="md-btn-small" ng-click="sendNotification($event, f)">
