@@ -17,9 +17,9 @@
 
 		<tbody>
 			<tr ng-repeat="po in product_order track by po.id">
-				<td data-title="No">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
-				<td data-title="Buyer">{{po.buyer}}</td>
-				<td data-title="From">
+				<td data-title="ردیف">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
+				<td data-title="خریدار">{{po.buyer}}</td>
+				<td data-title="دستگاه">
 					<div ng-if="po.serial != null && po.serial !=''">
 						<md-icon class="md-ic-small ic-small-green">android</md-icon>
 						<md-tooltip>اپلیکیشن اندروید</md-tooltip>
@@ -29,16 +29,16 @@
 						<md-tooltip>مرورگر</md-tooltip>
 					</div>
 				</td>
-				<td data-title="Code">{{po.code}}</td>
-				<td data-title="Total Fees">{{po.total_fees}}</td>
-				<td data-title="Date Ship">{{po.date_ship | date:'dd MMM yy'}}</td>
-				<td data-title="Created at">{{po.created_at | date:'dd MMM yy'}}</td>
-				<td data-title="Status">
+				<td data-title="کد پیگیری">{{po.code}}</td>
+				<td data-title="جمع مبلغ">{{po.total_fees}}</td>
+				<td data-title="زمان دریافت">{{po.date_ship | date:'dd MMM yy'}}</td>
+				<td data-title="تاریخ ثبت">{{po.created_at | date:'dd MMM yy'}}</td>
+				<td data-title="وضعیت">
 					<waiting ng-if="po.status=='WAITING'">درحال پردازش</waiting>
 					<processed ng-if="po.status=='PROCESSED'">تحویل داده شده</processed>
 					<cancel ng-if="po.status=='CANCEL'">مرجوعی/لغو شده</cancel>
 				</td>
-				<td data-title="Action">
+				<td data-title="عملیات">
 					<md-menu md-position-mode="target-right target" >
 						<md-button class="md-btn-small" ng-click="$mdOpenMenu($event)">
 							<md-icon class="md-ic-small" ng-style="{'font-size': '15px'}">more_vert</md-icon>
