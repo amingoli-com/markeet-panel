@@ -1,18 +1,4 @@
 angular.module('App').controller('RootCtrl', function ($rootScope, $scope, $mdSidenav, $mdToast, $mdDialog, $cookies, request, focus) {
-
-    import * as moment from 'jalali-moment.js';
-    @Pipe({
-        name: 'jalali'
-    })
-    export class JalaliPipe implements PipeTransform {
-        transform(value: any, args?: any): any {
-            let MomentDate = moment(value, 'YYYY/MM/DD');
-            return MomentDate.locale('fa').format('YYYY/M/D');
-        }
-    }
-
-
-
     var self = $scope;
     var root = $rootScope;
 
@@ -64,11 +50,11 @@ angular.module('App').controller('RootCtrl', function ($rootScope, $scope, $mdSi
     };
 
     root.sort_by = [
-        {id:0, label : "نمایش بر اساس جدیدترین", column:"created_at", order:"DESC"},
-        {id:1, label : "نمایش بر اساس قدیمی ترین", column:"created_at", order:"ASC"},
-        {id:2, label : "نمایش بر اساس گرانترین", column:"price", order:"DESC"},
-        {id:3, label : "نمایش بر اساس ارزانترین", column:"price", order:"ASC"},
-        {id:4, label : "نمایش بر اساس بیشترین موجودی", column:"price_discount", order:"DESC"}
+        {id:0, label : "جدیدترین", column:"created_at", order:"DESC"},
+        {id:1, label : "قدیمی‌ترین", column:"created_at", order:"ASC"},
+        {id:2, label : "گرانترین", column:"price", order:"DESC"},
+        {id:3, label : "ارزانترین", column:"price", order:"ASC"},
+        {id:4, label : "بیشترین‌موجودی", column:"price_discount", order:"DESC"}
     ];
 
     // when bar action clicked
