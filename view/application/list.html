@@ -14,15 +14,15 @@
 
 			<tbody>
 				<tr ng-repeat="a in app track by a.id">
-					<td data-title="No">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
-					<td data-title="Version Code">{{a.version_name}}</td>
-					<td data-title="Version Code">{{a.version_code}}</td>
-					<td data-title="Status">
+					<td data-title="ردیف">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
+					<td data-title="نام نسخه">{{a.version_name}}</td>
+					<td data-title="کد نسخه">{{a.version_code}}</td>
+					<td data-title="وضعیت">
 						<draft ng-if="a.active != 1">غیرفعال</draft>
 						<publish ng-if="a.active == 1">فعال</publish>
 					</td>	
-					<td data-title="Update">{{a.last_update | date:'dd MMM yy'}}</td>
-					<td data-title="Action">
+					<td data-title="آخرین بروزرسانی">{{a.last_update | date:'dd MMM yy'}}</td>
+					<td data-title="عملیات">
 						<div layout="row" layout-align="center">
 							<md-button ng-if="a.active != 1" layout-align="center" class="md-btn-small" ng-click="deleteVersion($event, a)">
 								<md-icon class="md-ic-small" ng-style="{'font-size': '15px'}">delete</md-icon>

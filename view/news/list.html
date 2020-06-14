@@ -14,18 +14,18 @@
 			<md-divider></md-divider>
 			<tbody>
 				<tr ng-repeat="n in news track by n.id">
-					<td data-title="No">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
-					<td data-title="Title">{{n.title | cut:false:50:' ...'}}</td>
-					<td data-title="Type">
+					<td data-title="ردیف">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
+					<td data-title="عنوان">{{n.title | cut:false:50:' ...'}}</td>
+					<td data-title="وضعیت انتشار">
 						<draft ng-if="n.draft == 1">پیش نویس</draft>
 						<publish ng-if="n.draft != 1">منتشر شده</publish>
 					</td>	
-					<td data-title="Status">
+					<td data-title="نوع خبر">
 						<featured ng-if="n.status=='FEATURED'">ویژه</featured>
 						<normal ng-if="n.status!='FEATURED'">عادی</normal>
 					</td>
-					<td data-title="Update">{{n.last_update | date:'dd MMM yy'}}</td>
-					<td data-title="Action">
+					<td data-title="آخرین بروزرسانی">{{n.last_update | date:'dd MMM yy'}}</td>
+					<td data-title="عملیات">
 						<md-menu md-position-mode="target-right target" >
 							<md-button class="md-btn-small" ng-click="$mdOpenMenu($event)">
 								<md-icon class="md-ic-small" ng-style="{'font-size': '15px'}">more_vert</md-icon>

@@ -15,16 +15,16 @@
 
 			<tbody>
 				<tr ng-repeat="c in category track by c.id">
-					<td data-title="No">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
-					<td data-title="Name">{{c.name}}</td>
-					<td data-title="Name">{{c.priority}}</td>
-					<td data-title="Color"><generic style="background:{{c.color}};">{{c.color}}</generic></td>
-					<td data-title="Type">
+					<td data-title="ردیف">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
+					<td data-title="نام">{{c.name}}</td>
+					<td data-title="ترتیب">{{c.priority}}</td>
+					<td data-title="رنگ"><generic style="background:{{c.color}};">{{c.color}}</generic></td>
+					<td data-title="وضعیت">
 						<draft ng-if="c.draft == 1">پیش نویس</draft>
 						<publish ng-if="c.draft != 1">منتشر شده</publish>
 					</td>	
-					<td data-title="Update">{{c.last_update | date:'dd MMM yy'}}</td>
-					<td data-title="Action">
+					<td data-title="آخرین بروزرسانی">{{c.last_update | date:'dd MMM yy'}}</td>
+					<td data-title="عملیات">
 						<div layout="row" layout-align="center">
 							<md-button layout-align="center" class="md-btn-small" ng-click="viewIcon($event, 'uploads/category/'+c.icon)">
 								<md-icon class="md-ic-small ic-small">wallpaper</md-icon>
