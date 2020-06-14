@@ -34,7 +34,7 @@
 					<th width="5%">قیمت</th>
 					<th width="5%">تخفیف</th>
 					<th width="3%">موجودی</th>
-					<th width="10%">وضعیت محصول</th>
+					<th width="15%">وضعیت محصول</th>
 					<th width="7%">بروز شده در</th>
 					<th width="5%">عملیات</th>
 				</tr>
@@ -42,22 +42,22 @@
 			<md-divider></md-divider>
 			<tbody class="as">
 				<tr ng-repeat="p in product track by p.id">
-					<td data-title="No">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
-					<td data-title="Name">{{p.name | cut:false:40:' ...'}}</td>
-					<td data-title="Type">
+					<td data-title="ردیف">{{($index+1) + (paging.current * paging.limit) - paging.limit}}</td>
+					<td data-title="نام">{{p.name | cut:false:40:' ...'}}</td>
+					<td data-title="وضعیت انتشار">
 						<draft ng-if="p.draft == 1">پیش نویس</draft>
 						<publish ng-if="p.draft != 1">منتشر شده</publish>
 					</td>
-					<td data-title="Price">{{p.price}}</td>
-					<td data-title="Stock">{{p.price_discount}}</td>
-					<td data-title="Stock">{{p.stock}}</td>
-					<td data-title="Status">
+					<td data-title="قیمت">{{p.price}}</td>
+					<td data-title="تخفیف">{{p.price_discount}}</td>
+					<td data-title="موجودی">{{p.stock}}</td>
+					<td data-title="وضعیت محصول">
 						<ready-stock ng-if="p.status=='READY STOCK'">آماده ارسال</ready-stock>
 						<suspend ng-if="p.status=='SUSPEND'">معلق</suspend>
 						<out-of-stock ng-if="p.status=='OUT OF STOCK'">تمام شده</out-of-stock>
 					</td>
-					<td data-title="Update">{{p.last_update | date:'yyyy/MM/dd ساعت HH:mm'}}</td>
-					<td data-title="Action">
+					<td data-title="بروز شده در">{{p.last_update | date:'yyyy/MM/dd ساعت HH:mm'}}</td>
+					<td data-title="عملیات">
 						<md-menu md-position-mode="target-right target" >
 							<md-button class="md-btn-small" ng-click="$mdOpenMenu($event)">
 								<md-icon class="md-ic-small" ng-style="{'font-size': '15px'}">more_vert</md-icon>
