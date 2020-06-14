@@ -151,8 +151,8 @@ class ProductOrder extends REST{
         if($order['serial'] != null){
             $regid = $this->fcm->findBySerial($order['serial']);
             $data = array(
-                'title' => 'Order Status Changed',
-                'content' => 'Your order ' . $order['code'] .' status has been change to ' . $order['status'],
+                'title' => 'سفارش شما آماده شد',
+                'content' => 'سفارش شما با کدپیگری: ' . $order['code'] .' آماده ارسال شد، و طبق زمان انتخابی شما به دستتان خواهد رسید ',
                 'type' => 'PROCESS_ORDER',
                 'code' => $order['code'],
                 'status' => $order['status']
