@@ -1,6 +1,39 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="fa" dir="rtl" prefix="og: http://ogp.me/ns#">
 <head>
+    <meta charset="UTF-8"/>
+    <base href="https://jibres.ir"/>
+    <title>چاپ فاکتور | آهوی ایرانی</title>
+    <meta content="جیبرس تنها یک نرم افزار حسابداری آنلاین نیست؛ ما در حال توسعه برای ساخت بهترین پلتفرم مالی هستیم تا تمام نیازهای فروش و مدیریت مالی زندگی شما را پوشش دهیم." name="description"/>
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/><![endif]-->
+    <meta content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, maximum-scale=1.1, user-scalable=0" name="viewport"/>
+    <meta content='B' name='user-Jibres'/>
+    <meta content='$jb2t2' name='store-code'/>
+    <meta content="https://jibres.ir/" name="jibres:sitelang"/>
+    <meta content="https://api.jibres.ir/" name="jibres:api"/>
+    <meta content="https://cdn.talambar.ir/" name="jibres:cdn"/>
+    <meta content="index, follow" name ="robots"/>
+    <meta content='UA-130946685-2' name='gtag'/>
+    <meta content="yes" name="mobile-web-app-capable"/>
+    <meta content="yes" name="apple-touch-fullscreen"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="#c80a5a" name="theme-color"/>
+    <meta content="#c80a5a" name="msapplication-TileColor">
+    <meta content="آهوی ایرانی" name="application-name"/>
+    <meta content="آهوی ایرانی" name="apple-mobile-web-app-title"/>
+    <meta content="https://cdn.talambar.ir/favicons/browserconfig.xml?v=1" name="msapplication-config"/>
+    <link href="https://cdn.talambar.ir/favicons/apple-touch-icon.png?v=1" sizes="180x180" rel="apple-touch-icon"/>
+    <link href="https://cdn.talambar.ir/favicons/favicon-64x64.png?v=1" sizes="64x64" type="image/png" rel="icon"/>
+    <link href="https://cdn.talambar.ir/favicons/favicon-32x32.png?v=1" sizes="32x32" type="image/png" rel="icon"/>
+    <link href="https://cdn.talambar.ir/favicons/favicon-16x16.png?v=1" sizes="16x16" type="image/png" rel="icon"/>
+    <link href="https://cdn.talambar.ir/favicons/safari-pinned-tab.svg?v=1" rel="mask-icon"/>
+    <link href="https://cdn.talambar.ir/favicons/favicon.ico?v=1" rel="shortcut icon"/>
+    <link href="https://jibres.ir/$jb2t2/manifest.webmanifest" rel="manifest"/>
+    <link href="https://cdn.talambar.ir/logo/en/svg/Jibres-Logo-en.svg" rel="apple-touch-startup-image"/>
+    <link href="https://jibres.ir/$jb2t2/humans.txt" rel="author"/>
+    <link href="https://cdn.talambar.ir/css/jibres.min.css?1590593777" rel="stylesheet"/>
+
     <meta charset="UTF-8">
     <title>مارکت</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -35,160 +68,195 @@
     <script src="../../controller/order/print.js"></script>
 </head>
 
-<body layout="row" ng-app="App" ng-controller="PrintOrderController" layout-fill>
+<body data-env='$jb2t2' data-in='a' data-page='chap_receipt' data-panel data-preload>
+<aside id='sidebar' data-xhr='sidebar'>  <div class="scr">
 
-<div layout="column" class="relative" style="background-color:#FFF; width: 100%">
-    <md-content id="main-content" style="width: 100%" >
-        <div layout width="700" style="width: 700px; padding: 20px;">
-            <div layout="column">
-                <div layout="row">
-                    <item flex="25">
-                        <img src="../../lib/img/logo_print.png" alt="Logo Print">
-                    </item>
-                    <span flex></span>
-                    <item>
-                        <md-button class="md-icon-button" ng-click="printAction()">
-                            <md-icon aria-label="Print">print</md-icon>
-                        </md-button>
-                    </item>
-                </div>
+    <figure><a href='https://jibres.ir/$jb2t2/account' title='پروفایل خود را ویرایش کنید' class='avatar'><img src="https://dl.talambar.ir/1/24-4c9a7e78ffe1ec8d45b3572bd21e6ce2.jpg" alt="آواتار شما امین گلی"></a><figcaption>سلام <b>امین گلی</b></figcaption></figure>
+    <div class="menu">
+        <ul class="sidenav">
+            <li><a href="https://jibres.ir/$jb2t2/a"  class="activeContent"><i class='sf-align-left'></i> پنل مدیریت فروشگاه</a></li>
+            <li><a href="https://jibres.ir/$jb2t2/a"><i class='sf-gauge'></i> <span>داشبورد</span></a></li>
+            <li>
+                <a href="https://jibres.ir/$jb2t2/a/products"><i class="sf-box"></i>محصولات</a>    </li>
+            <li>
+                <a href="https://jibres.ir/$jb2t2/a/factor"><i class="sf-print"></i>فاکتور</a>    <ul>
+                <li><a href="https://jibres.ir/$jb2t2/a/sale"><i class="floatRa mRa10 fc-mute sf-cart-plus"></i>ثبت فاکتور فروش جدید <kbd class="light">F2</kbd> </a></li>      </ul>
+            </li>
+            <li><a href="https://jibres.ir/$jb2t2/a/setting"><i class="sf-cogs"></i>تنظیمات</a></li>
 
-                <div layout="row" style="margin-top: 20px;">
-                    <item flex="50"><b>مشخصات سفارش</b></item>
-                    <item flex></item>
-                    <item>کد رهگیری : <span style="color: #89C541;">{{order.code}}</span></item>
-                </div>
 
-                <md-divider class="margin-divider"></md-divider>
+            <li><a href="https://jibres.ir/my" ><i class='sf-atom'></i> پنل جیبرس</a></li>
+            <li><a href="https://jibres.ir/my/domain" ><i class='sf-flag'></i> دامنه‌های جیبرس</a></li>
+            <li><a href="https://jibres.ir/my/business" ><i class='sf-heart'></i> بیزینس‌های من</a></li>
 
-                <div layout="row">
-                    <item flex="25">نام خریدار</item>
-                    <item flex="5"> :</item>
-                    <item>{{order.buyer}}</item>
-                </div>
-                <div layout="row">
-                    <item flex="25">ایمیل</item>
-                    <item flex="5"> :</item>
-                    <item>{{order.email}}</item>
-                </div>
-                <div layout="row">
-                    <item flex="25">تلفن</item>
-                    <item flex="5"> :</item>
-                    <item>{{order.phone}}</item>
-                </div>
-                <div layout="row">
-                    <item flex="25">آدرس</item>
-                    <item flex="5"> :</item>
-                    <item>{{order.address}}</item>
-                </div>
 
-                <md-divider class="margin-divider"></md-divider>
-                <div layout="row">
-                    <item flex="25">روش دریافت</item>
-                    <item flex="5"> :</item>
-                    <item>{{order.shipping}}</item>
-                </div>
-                <div layout="row">
-                    <item flex="25">تاریخ دریافت</item>
-                    <item flex="5"> :</item>
-                    <item>{{order.date_ship | date:'dd MMMM yyyy'}}</item>
-                </div>
 
-                <md-divider class="margin-divider"></md-divider>
-                <div layout="row">
-                    <item flex="25">وضعیت</item>
-                    <item flex="5"> :</item>
-                    <item>
-                        <waiting ng-if="order.status=='WAITING'">{{order.status}}</waiting>
-                        <processed ng-if="order.status=='PROCESSED'">{{order.status}}</processed>
-                        <cancel ng-if="order.status=='CANCEL'">{{order.status}}</cancel>
-                    </item>
-                </div>
-                <div layout="row">
-                    <item flex="25">جمع کل</item>
-                    <item flex="5"> :</item>
-                    <item>{{order.total_fees}} {{conf_currency}}</item>
-                </div>
+            <li><a href="https://jibres.ir/$jb2t2/cms"  data-shortkey="67+77" data-shortkey-prevent data-shortkey-timeout='1000'><i class='sf-align-left'></i> سیستم مدیریت محتوا</a></li>
+            <li><a href="https://jibres.ir/$jb2t2/crm"  data-shortkey="77+85" data-shortkey-prevent data-shortkey-timeout='1000'><i class='sf-group-full'></i> پنل مدیریت ارتباط با مشتریان</a></li>
+            <li><a href="https://jibres.ir/account" data-shortkey="77+69" data-shortkey-prevent data-shortkey-timeout='1000'><i class='sf-user'></i> <span>حساب من</span></a></li>
+            <li><a href="https://jibres.ir/support" data-shortkey="112" data-shortkey-prevent data-shortkey-timeout='1000'><i class='sf-life-ring'></i> <span>مرکز راهنمایی</span></a></li>
+        </ul>
+    </div>
+</div>
+    <abbr class="toggleClean" title='برای تغییر وضعیت منوی کناری کلیک کنید'><span class="sf-arrows-out"></span></abbr>
+    <a href="https://jibres.ir" id='ermileBadge' class="f">
+        <div class="cauto pRa10"><img src="https://cdn.talambar.ir/logo/icon/svg/Jibres-Logo-icon.svg" alt='جیبرس'></div>
+        <div class="c"><h2>جیبرس</h2><h3>بفروش و لذت ببر</h3></div>
+    </a>
+</aside>
+<header id='pageHeader' data-xhr='pageHeader' data-scroll>
+    <div class="f">
+        <div class="sidenavHandler c0 sauto mauto"><i class="sf-ellipsis-v"></i></div>
+        <a class="cauto logo" href="https://jibres.ir/$jb2t2" ><img src="https://cloud.talambar.ir/jb2t2/202002/2-3a2c9fcb360d89dcd97e8dda1f293d8e.jpg" alt='آهوی ایرانی'></a>
+        <h1 class='c'><a href="https://jibres.ir/$jb2t2">آهوی ایرانی</a></h1>
+        <div class='hm right flex cauto os'>
+            <a href="https://jibres.ir/support" title='مرکز راهنمایی' class="support s0"><i class="sf-life-ring"></i></a>
+            <a href="https://jibres.ir/account/notification" title='اطلاع‌رسانی‌ها' class="notification"><i class="sf-bell"></i></a>
+            <a class="profileShow" href="https://jibres.ir/$jb2t2/account">
+                <img src="https://dl.talambar.ir/1/24-4c9a7e78ffe1ec8d45b3572bd21e6ce2.jpg" alt='آواتار شما امین گلی'>
+            </a>
+        </div>
+    </div>
+</header>
+<main id='pageContent' data-xhr='pageContent'><div id='content' class='scr'>
 
-                <md-divider class="margin-divider"></md-divider>
-                <div layout="row">
-                    <item flex="25">تاریخ ثبت سفارش</item>
-                    <item flex="5"> :</item>
-                    <item>{{order.created_at | date:'hh.mm, dd MMMM yyyy'}}</item>
-                </div>
-                <div layout="row">
-                    <item flex="25">بروز شده در</item>
-                    <item flex="5"> :</item>
-                    <item>{{order.last_update | date:'hh.mm, dd MMMM yyyy'}}</item>
-                </div>
+    <div class="titleBox">
+        <div class="f align-center">
+            <div class="cauto pRa10">
+                <a class="btn master back" href="https://jibres.ir/$jb2t2/a/factor"><i class="pRa5 sf-chevron-right"></i><span class="s0">فاکتورها</span></a>
+            </div>
+            <div class="c s10 pRa10 pageTitle">
+                <h2>چاپ فاکتور</h2>
+            </div>
+            <nav class="cauto actions">
+            </nav>
+            <nav class="cauto os pLa10">
+                <a class="btn master" href="https://jibres.ir/$jb2t2/a/factor?type=sale" data-shortkey="120"><span>بازگشت به آخرین فروش‌ها</span> <kbd>F9</kbd></a>
+            </nav>
+        </div>
+    </div>
 
-                <md-divider class="margin-divider"></md-divider>
-                <div layout="row">
-                    <item flex="25">توضیحات</item>
-                    <item flex="5"> :</item>
-                    <item>{{order.comment}}</item>
-                </div>
-                <md-divider class="margin-divider"></md-divider>
-                <div layout="row" ng-if="order.serial !== ''">
-                    <item flex="25">سریال</item>
-                    <item flex="5"> :</item>
-                    <item>{{order.serial}}</item>
-                </div>
 
-                <md-divider class="margin-divider" ng-if="order.serial !== ''"></md-divider>
+    <div class="factor printArea" data-size='receipt8'>
 
-                <br>
-                <b>لیست سفارشات: </b><br>
 
-                <md-divider></md-divider>
-                <div layout="row">
-                    <item flex="5"><b>ردیف</b></item>
-                    <item flex="50" style="width: 500px; text-align: center"><b> نام محصول </b></item>
-                    <item flex="5"></item>
-                    <item flex="15"><b>قیمت</b></item>
-                    <item flex="5"><b>تعداد</b></item>
-                    <item flex="20" layout="row" layout-align="end center"><b>جمع</b></item>
-                </div>
-                <md-divider></md-divider>
 
-                <div layout="row" ng-repeat="pod in order_details">
-                    <item flex="5">{{$index+1}}</item>
-                    <item flex="50"style="width: 500px;">{{pod.product_name}}</item>
-                    <item flex="5"></item>
-                    <item flex="15">{{pod.price_item}}</item>
-                    <item flex="5">{{pod.amount}}</item>
-                    <item flex="20" layout="row" layout-align="end center">{{getPriceTotal(pod)}} {{conf_currency}}
-                    </item>
-                </div>
+        <div class="logo txtC midSize">
+            <img src="https://cloud.talambar.ir/jb2t2/202002/2-3a2c9fcb360d89dcd97e8dda1f293d8e.jpg" alt="آهوی ایرانی">
+        </div>
 
-                <md-divider></md-divider>
-                <div layout="row">
-                    <item flex="80">جمع کل</item>
-                    <item flex="20" layout="row"
-                          layout-align="end center">{{price_total_formatted}} {{conf_currency}}
-                    </item>
-                </div>
-                <div layout="row">
-                    <item flex="80">مالیات ({{order.tax}} %)</item>
-                    <item flex="20" layout="row" layout-align="end center">{{price_tax_formatted}} {{conf_currency}}
-                    </item>
-                </div>
-                <md-divider></md-divider>
-                <div layout="row" style="color: #89C541;">
-                    <item flex="80"><b>جمع کل با مالیات</b></item>
-                    <item flex="20" layout="row" layout-align="end center">
-                        <b>{{price_after_tax}} {{conf_currency}}</b>
-                    </item>
-                </div>
-                <md-divider></md-divider>
-                <p class="hint">
-                    <i> * این مالیات ممکن است با مالیات فعلی شما متفاوت باشد ، این مالیات هنگام ارسال سفارش از خریدار محاسبه می کند</i>
-                </p>
-                <br><br>
+        <div class="f storeDetail fs12 txtC">
+            <div class="c">
+                <h1>آهوی ایرانی</h1>
+                <address>
+                    <div class="address">قم قم قم قم</div>
+                    <div class="f">
+                        <div class="phone"></div>
+                        <div class="website"></div>
+                    </div>
+                </address>
+                <div class="desc mB5"></div>
             </div>
         </div>
-    </md-content>
-</div>
 
+
+
+
+
+
+
+
+
+
+
+
+        <div class="f factorDetail fs12 mB10 txtC">
+            <div class="c12">
+                <div class="datetime">۱۳۹۹-۰۲-۲۲</div>
+                <div>فاکتور فروش <code id='barcode' data-val='JF1283540'>JF1283540</code></div>
+            </div>
+        </div>
+
+
+
+
+        <table class="tbl1 v1 fs12 txtC">
+            <thead>
+            <tr class="fs07">
+                <th>نام</th>
+                <th>تعداد</th>
+                <th>قیمت<br>برای شما</th>
+                <th>جمع</th>
+            </tr>
+            </thead>
+            <tbody>
+
+
+            <tr>
+                <td class="txtLa productTitle"> بستنی کیم دومینو</td>
+                <td>۱ <small>عدد</small></td>
+                <td><del>۱,۲۰۰</del><br>۱,۰۰۰</td>
+                <td>۱,۰۰۰</td>
+            </tr>
+
+
+            <tr>
+                <td class="txtLa productTitle"> شاسی 10070</td>
+                <td>۱ <small></small></td>
+                <td><del>۳۰۸,۰۰۰</del><br>۳۰۰,۰۰۰</td>
+                <td>۳۰۰,۰۰۰</td>
+            </tr>
+            </tbody>
+
+
+
+        </table>
+
+
+
+
+        <table class="tbl fs14 factorResult mB10">
+            <tbody>
+
+            <tr>
+                <th class="txtRa fs08">مبلغ فاکتور</th>
+                <td class="collapsing txtLa">۳۰۹,۲۰۰</td>
+            </tr>
+
+            <tr>
+                <th class="txtRa fs08">کل تخفیف و سود شما</th>
+                <td class="collapsing txtLa">۸,۲۰۰</td>
+            </tr>
+
+
+            <tr class="msg info2 factorSum">
+                <th class="txtRa fs08">جمع مبلغ قابل پرداخت</th>
+                <td class="collapsing txtLa">۳۰۱,۰۰۰ <small class="fs05">تومان</small></td>
+            </tr>
+            </tbody>
+
+        </table>
+
+
+        <div class="barcodeBox">
+            <svg class="barcodePrev wide" data-val="#barcode" data-height=20 data-hideValue></svg>
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+</div>
+</main>
+<footer id='pageFooter' data-xhr='pageFooter'></footer>
+<div class="js">
+    <script src="https://cdn.talambar.ir/js/siftal.min.js?1590593777"></script>
+
+    <noscript><div class="line top danger fs12"><span class="txtB mB10">جاوا اسکریپت برای استفاده از سرویس ما ضروری است.</span> جاوا اسکریپت را در مرورگر خود فعال کنید یا از مرورگری استفاده کنید که  آن پشتیبانی می‌کند.</div></noscript>
+</div>
 </body>
 </html>
