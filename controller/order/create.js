@@ -66,9 +66,9 @@ angular.module('App').controller('AddOrderController', function ($rootScope, $sc
             price_total += self.order_details[i].price_item * self.order_details[i].amount;
         }
 	    price_tax = (self.order.tax / 100) * price_total;
-        self.price_tax_formatted = parseFloat(price_tax).toFixed(2);
-        self.price_total_formatted = parseFloat(price_total).toFixed(2);
-        self.price_after_tax = parseFloat(price_total + price_tax).toFixed(2);
+        self.price_tax_formatted = parseFloat(price_tax).toFixed(0);
+        self.price_total_formatted = parseFloat(price_total).toFixed(0);
+        self.price_after_tax = parseFloat(price_total + price_tax).toFixed(0);
     };
 
 
@@ -166,7 +166,7 @@ angular.module('App').controller('AddOrderController', function ($rootScope, $sc
 
 	self.cancel = function () { window.location.href = '#order'; };
 	self.isNewEntry = function () { return is_new; };
-    self.getPriceTotal = function (pod) { return parseFloat(pod.price_item*pod.amount).toFixed(2); };
+    self.getPriceTotal = function (pod) { return parseFloat(pod.price_item*pod.amount).toFixed(0); };
 
 	self.addProductDialog = function(ev) {
 		$mdDialog.show({

@@ -36,7 +36,7 @@ angular.module('App').controller('PrintOrderController', function ($scope, $root
 
     request.getOneProductOrder(self.id).then(function (resp) {
         self.order = resp.data;
-        self.order.total_fees = parseFloat(self.order.total_fees).toFixed(2);
+        self.order.total_fees = parseFloat(self.order.total_fees).toFixed(0);
         window.document.title = 'Markeet Order - ' + self.order.code;
         request.getAllProductOrderDetailByOrderId(self.id).then(function (resp) {
             self.order_details = resp.data;
@@ -53,7 +53,7 @@ angular.module('App').controller('PrintOrderController', function ($scope, $root
     });
 
     self.getPriceTotal = function (pod) {
-        return parseFloat(pod.price_item * pod.amount).toFixed(2);
+        return parseFloat(pod.price_item * pod.amount).toFixed(0);
     };
 
     self.calculateTotal = function () {
@@ -68,9 +68,9 @@ angular.module('App').controller('PrintOrderController', function ($scope, $root
             price_total += self.order_details[i].price_item * self.order_details[i].amount;
         }
         price_tax = (self.order.tax / 100) * price_total;
-        self.price_tax_formatted = parseFloat(price_tax).toFixed(2);
-        self.price_total_formatted = parseFloat(price_total).toFixed(2);
-        self.price_after_tax = parseFloat(price_total + price_tax).toFixed(2);
+        self.price_tax_formatted = parseFloat(price_tax).toFixed(0);
+        self.price_total_formatted = parseFloat(price_total).toFixed(0);
+        self.price_after_tax = parseFloat(price_total + price_tax).toFixed(0);
     };
 
     self.printAction = function () {

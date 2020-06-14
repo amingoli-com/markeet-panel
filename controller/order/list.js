@@ -133,7 +133,7 @@ function DetailsOrderControllerDialog($scope, $rootScope, $mdDialog, request, $m
 	self.order_details 	=  null;
 	self.hide   = function() { $mdDialog.hide(); };
 	self.cancel = function() { $mdDialog.cancel(); };
-	self.order.total_fees = parseFloat(self.order.total_fees).toFixed(2);
+	self.order.total_fees = parseFloat(self.order.total_fees).toFixed(0);
 
 	request.getAllProductOrderDetailByOrderId(order.id).then(function (resp) {
 		self.order_details = resp.data;
@@ -149,7 +149,7 @@ function DetailsOrderControllerDialog($scope, $rootScope, $mdDialog, request, $m
     });
 
 	self.getPriceTotal = function (pod) {
-	    return parseFloat(pod.price_item*pod.amount).toFixed(2);
+	    return parseFloat(pod.price_item*pod.amount).toFixed(0);
     };
 
 	self.print = function () {
@@ -171,9 +171,9 @@ function DetailsOrderControllerDialog($scope, $rootScope, $mdDialog, request, $m
             price_total += self.order_details[i].price_item * self.order_details[i].amount;
         }
 	    price_tax = (self.order.tax / 100) * price_total;
-        self.price_tax_formatted = parseFloat(price_tax).toFixed(2);
-        self.price_total_formatted = parseFloat(price_total).toFixed(2);
-        self.price_after_tax = parseFloat(price_total + price_tax).toFixed(2);
+        self.price_tax_formatted = parseFloat(price_tax).toFixed(0);
+        self.price_total_formatted = parseFloat(price_total).toFixed(0);
+        self.price_after_tax = parseFloat(price_total + price_tax).toFixed(0);
     };
 
     self.processOrder = function (od) {

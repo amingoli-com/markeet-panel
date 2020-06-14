@@ -99,9 +99,9 @@
                     <item flex="25">وضعیت</item>
                     <item flex="5"> :</item>
                     <item>
-                        <waiting ng-if="order.status=='WAITING'">{{order.status}}</waiting>
-                        <processed ng-if="order.status=='PROCESSED'">{{order.status}}</processed>
-                        <cancel ng-if="order.status=='CANCEL'">{{order.status}}</cancel>
+                        <waiting ng-if="order.status=='WAITING'">درحال پردازش</waiting>
+                        <processed ng-if="order.status=='PROCESSED'">پردازش شده</processed>
+                        <cancel ng-if="order.status=='CANCEL'">مرجوعی/لغو شده</cancel>
                     </item>
                 </div>
                 <div layout="row">
