@@ -7,8 +7,8 @@ angular.module('App').controller('RootCtrl', function ($rootScope, $scope, $mdSi
     root.PANEL_VERSION = "3.0";
 
     /* Constant String data */
-    root.PRODUCT_UPDATE = "محصولات را بروز کنید";
-    root.PRODUCT_NEW = "محصول جدیدی اضافه کنید";
+    root.PRODUCT_UPDATE = "یک محصول بروز شد";
+    root.PRODUCT_NEW = "محصول جدید اضافه شد";
 
     /* expired session for admin login*/
     var SESSION_EXPIRED = 1; // in days

@@ -56,7 +56,8 @@
 						<suspend ng-if="p.status=='SUSPEND'">معلق</suspend>
 						<out-of-stock ng-if="p.status=='OUT OF STOCK'">تمام شده</out-of-stock>
 					</td>
-					<td data-title="بروز شده در">{{p.last_update | date:'yyyy/MM/dd ساعت HH:mm'}}</td>
+<!--					<td data-title="بروز شده در">{{p.last_update | date:'yyyy/MM/dd ساعت HH:mm'}}</td>-->
+					<td data-title="بروز شده در">{{p.last_update | jdate:'small'}}</td>
 					<td data-title="عملیات">
 						<md-menu md-position-mode="target-right target" >
 							<md-button class="md-btn-small" ng-click="$mdOpenMenu($event)">

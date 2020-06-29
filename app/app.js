@@ -4,7 +4,7 @@ angular.module('App',
 /* Theme Configuration
  */
 angular.module('App').config(function ($mdThemingProvider) {
-
+	import {JDate} from 'ngx-persian';
 	// Use as Primary color
 	var myPrimary = $mdThemingProvider.extendPalette('light-blue', {
 			'600': '00abc2',
